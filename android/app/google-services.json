@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "144477636927",
+    "project_id": "eduhire-9763e",
+    "storage_bucket": "eduhire-9763e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:144477636927:android:8f1748ac0521845197ab8a",
+        "android_client_info": {
+          "package_name": "com.test.eduhire"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC6bbcYQVhTpRw17p5NBCLV_5kdLBK6WIk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
