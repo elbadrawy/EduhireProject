@@ -11,34 +11,35 @@ import Container from '../Container';
 import {Text, Divider} from '@rneui/themed';
 import reactotron from 'reactotron-react-native';
 
-export default function Jobs() {
+export default function Tasks() {
   const [loading, setLoading] = useState(true);
   const [jobs, setJobs] = useState([]);
 
-  const getCompanyInfo = async companyID => {
-    const document = await companyID.get();
+  const getMentorInfo = async mentorID => {
+    const document = await mentorID.get();
     return document.data();
   };
 
   useEffect(() => {
     const fetchJobs = async () => {
       try {
-        //if user is company need to return only his job oppourtinity
-        const querySnapshot = await firestore().collection('Jobs').get();
+        //Query here to get only tasks assigned to you or created by you if user type is mentor 
+        //need auth user passed here 
+        const querySnapshot = await firestore().collection('Tasks').get();
         const jobsPromises = querySnapshot.docs.map(async documentSnapshot => {
-          let companyData = await getCompanyInfo(
-            documentSnapshot.data().companyID,
+          let mentorData = await getMentorInfo(
+            documentSnapshot.data().mentorID,
           );
           return {
             ...documentSnapshot.data(),
             key: documentSnapshot.id,
-            company: {...companyData},
+            mentor: {...mentorData},
           };
         });
         const jobsData = await Promise.all(jobsPromises);
         setJobs(jobsData);
       } catch (error) {
-        console.error('Error fetching jobs:', error);
+        console.error('Error fetching Tasks:', error);
       } finally {
         setLoading(false);
       }
@@ -56,13 +57,13 @@ export default function Jobs() {
       <FlatList
         data={jobs}
         style={{flex: 1, padding: 15}}
-        ListHeaderComponent={() => <Text h3>Jobs</Text>}
+        ListHeaderComponent={() => <Text h3>My Tasks</Text>}
         renderItem={({item}) => (
           <TouchableOpacity
             style={{padding: 15, backgroundColor: '#fff', margin: 10}}>
             <Text h4>{item.title}</Text>
             <Text>{item.description}</Text>
-            <Text>{item?.company?.companyInfo?.name}</Text>
+            <Text>{item?.mentor?.mentorDetails?.name}</Text>
           </TouchableOpacity>
         )}
         ItemSeparatorComponent={() => <Divider />}

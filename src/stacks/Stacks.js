@@ -6,6 +6,8 @@ import RejesterScreen from '../screens/rejester/Rejester';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Jobs from '../screens/jobs/Jobs';
+import Tasks from '../screens/tasks/Tasks';
+import Training from '../screens/training/Training';
 
 export const MainStack = createNativeStackNavigator();
 export const PreLoginStack = createNativeStackNavigator();
@@ -18,6 +20,7 @@ export function preLoginStack(props) {
       <PreLoginStack.Screen
         name={'rejesterScreen'}
         component={RejesterScreen}
+        options={{headerTitle: 'Registration'}}
       />
     </PreLoginStack.Navigator>
   );
@@ -58,7 +61,7 @@ export function postLoginStack(props) {
         name={'TasksScreen'}
         headerMode="none"
         initialParams={{user: props}}
-        component={HomeScreen}
+        component={Tasks}
         options={{
           tabBarLabel: 'Tasks',
           tabBarIcon: ({ color }) => (
@@ -70,7 +73,7 @@ export function postLoginStack(props) {
         name={'TrainingScreen'}
         headerMode="none"
         initialParams={{user: props}}
-        component={HomeScreen}
+        component={Training}
         options={{
           tabBarLabel: 'Training',
           tabBarIcon: ({ color }) => (

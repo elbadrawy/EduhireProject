@@ -11,7 +11,7 @@ import Container from '../Container';
 import {Text, Divider} from '@rneui/themed';
 import reactotron from 'reactotron-react-native';
 
-export default function Jobs() {
+export default function Training() {
   const [loading, setLoading] = useState(true);
   const [jobs, setJobs] = useState([]);
 
@@ -23,8 +23,8 @@ export default function Jobs() {
   useEffect(() => {
     const fetchJobs = async () => {
       try {
-        //if user is company need to return only his job oppourtinity
-        const querySnapshot = await firestore().collection('Jobs').get();
+        //if user is company need to return only his training oppourtinity
+        const querySnapshot = await firestore().collection('Training').get();
         const jobsPromises = querySnapshot.docs.map(async documentSnapshot => {
           let companyData = await getCompanyInfo(
             documentSnapshot.data().companyID,
@@ -56,7 +56,7 @@ export default function Jobs() {
       <FlatList
         data={jobs}
         style={{flex: 1, padding: 15}}
-        ListHeaderComponent={() => <Text h3>Jobs</Text>}
+        ListHeaderComponent={() => <Text h3>Trainings</Text>}
         renderItem={({item}) => (
           <TouchableOpacity
             style={{padding: 15, backgroundColor: '#fff', margin: 10}}>

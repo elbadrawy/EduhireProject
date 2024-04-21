@@ -25,6 +25,10 @@ export default function HomeScreen({route, navigation}) {
       );
   };
 
+  if (!user) {
+    return null;
+  }
+
   return (
     <View style={styles.containerStyle}>
       <Text onPress={() => null}>Welcome {user.email}</Text>

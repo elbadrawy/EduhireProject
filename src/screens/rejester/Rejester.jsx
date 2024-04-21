@@ -14,9 +14,9 @@ import {Dropdown} from 'react-native-element-dropdown';
 import styles from './Rejester.style';
 
 const data = [
-  {label: 'student', value: '1'},
-  {label: 'company', value: '2'},
-  {label: 'mentor', value: '3'},
+  {label: 'Student', value: '1'},
+  {label: 'Company', value: '2'},
+  {label: 'Mentor', value: '3'},
 ];
 
 export default function Rejester({navigation}) {
@@ -30,27 +30,68 @@ export default function Rejester({navigation}) {
   const [education, setEducation] = useState();
   const [skills, setSkills] = useState();
   const [gradDate, setGradDate] = useState();
-  const [type, setType] = useState();
+  const [type, setType] = useState('1');
+  const [companyName, setCompanyName] = useState();
+  const [companyWeb, setCompanyWeb] = useState();
+  const [companyPersonName, setCompanyPersonName] = useState();
+  const [mentorName, setMentorName] = useState();
+  const [mentorBio, setMentorBio] = useState();
+  const [mentorJobTitle, setMentorJobTitle] = useState();
 
   const rejester = () => {
     auth()
       .createUserWithEmailAndPassword(email, password)
       .then(x => {
+        let regesterData = null;
+        if (type === '1') {
+          regesterData = {
+            uid: x?.user?.uid,
+            email: email,
+            firstname: firstname,
+            lastname: lastname,
+            educationInfo: {
+              education: education,
+              major: major,
+              gradDate: gradDate,
+            },
+            location: {
+              city: city,
+              country: country,
+            },
+            skills: {key: 'bla', value: 'bla1'},
+            type: type,
+          };
+        } else if (type === '2') {
+          regesterData = {
+            uid: x?.user?.uid,
+            email: email,
+            companyInfo: {
+              name: companyName,
+              contactName: companyPersonName,
+              companyWebSite: companyWeb,
+            },
+            location: {
+              city: city,
+              country: country,
+            },
+            type: type,
+          };
+        } else {
+          regesterData = {
+            uid: x?.user?.uid,
+            email: email,
+            mentorDetails: {
+              name: mentorName,
+              bio: mentorBio,
+              jobTitle: mentorJobTitle,
+            },
+            type: type,
+          };
+        }
         firestore()
           .collection('Users')
           .doc(x?.user?.uid)
-          .set({
-            uid: x?.user?.uid,
-            firstname: firstname,
-            lastname: lastname,
-            major: major,
-            city: city,
-            country: country,
-            education: education,
-            skills: {key: 'bla', value: 'bla1'},
-            gradDate: gradDate,
-            type: type,
-          })
+          .set(regesterData)
           .then(() => {
             navigation.navigate('PostLoginStack', {
               params: {user: x.user},
@@ -102,42 +143,95 @@ export default function Rejester({navigation}) {
           //secureTextEntry={true}
           onChangeText={v => setPassword(v)}
         />
-        <Input
-          placeholder="Firstname"
-          value={firstname}
-          onChangeText={v => setFirstname(v)}
-        />
-        <Input
-          placeholder="Lastname"
-          value={lastname}
-          onChangeText={v => setLastname(v)}
-        />
-        <Input
-          placeholder="country"
-          value={country}
-          onChangeText={v => setCountry(v)}
-        />
-        <Input placeholder="city" value={city} onChangeText={v => setCity(v)} />
-        <Input
-          placeholder="major"
-          value={major}
-          onChangeText={v => setMajor(v)}
-        />
-        <Input
-          placeholder="education"
-          value={education}
-          onChangeText={v => setEducation(v)}
-        />
-        <Input
-          placeholder="gradDate"
-          value={gradDate}
-          onChangeText={v => setGradDate(v)}
-        />
-        <Input
-          placeholder="skills"
-          value={skills}
-          onChangeText={v => setSkills(v)}
-        />
+        {type === '1' ? (
+          <View>
+            <Input
+              placeholder="Firstname"
+              value={firstname}
+              onChangeText={v => setFirstname(v)}
+            />
+            <Input
+              placeholder="Lastname"
+              value={lastname}
+              onChangeText={v => setLastname(v)}
+            />
+          </View>
+        ) : type === '2' ? (
+          <View>
+            <Input
+              placeholder="Company Name"
+              value={companyName}
+              onChangeText={v => setCompanyName(v)}
+            />
+            <Input
+              placeholder="Contact Name"
+              value={companyPersonName}
+              onChangeText={v => setCompanyPersonName(v)}
+            />
+            <Input
+              placeholder="Company Websire"
+              value={companyWeb}
+              onChangeText={v => setCompanyWeb(v)}
+            />
+          </View>
+        ) : (
+          <View>
+            <Input
+              placeholder="Name"
+              value={mentorName}
+              onChangeText={v => setMentorName(v)}
+            />
+            <Input
+              placeholder="Bio"
+              value={mentorBio}
+              onChangeText={v => setMentorBio(v)}
+            />
+            <Input
+              placeholder="Job Title"
+              value={mentorJobTitle}
+              onChangeText={v => setMentorJobTitle(v)}
+            />
+          </View>
+        )}
+        {type !== '3' && (
+          <>
+            <Input
+              placeholder="country"
+              value={country}
+              onChangeText={v => setCountry(v)}
+            />
+            <Input
+              placeholder="city"
+              value={city}
+              onChangeText={v => setCity(v)}
+            />
+          </>
+        )}
+        {type === '1' && (
+          <View>
+            <Input
+              placeholder="major"
+              value={major}
+              onChangeText={v => setMajor(v)}
+            />
+            <Input
+              placeholder="education"
+              value={education}
+              onChangeText={v => setEducation(v)}
+            />
+            <Input
+              placeholder="gradDate"
+              value={gradDate}
+              onChangeText={v => setGradDate(v)}
+            />
+            <Input
+              placeholder="skills"
+              value={skills}
+              onChangeText={v => setSkills(v)}
+            />
+          </View>
+        )}
+
         <Button title="Rejester" onPress={() => rejester()} />
       </View>
     </ScrollView>

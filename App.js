@@ -7,6 +7,10 @@ import {
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
 
+
+if (__DEV__) {
+  require("./ReactotronConfig");
+}
 export default function App() {
   const [initializing, setInitializing] = useState(true);
   const [user, setUser] = useState();
