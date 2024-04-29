@@ -50,7 +50,6 @@ export default function Training() {
   if (loading) {
     return <ActivityIndicator style={{flex: 1, alignSelf: 'center'}} />;
   }
-  reactotron.log(jobs);
   return (
     <Container>
       <FlatList

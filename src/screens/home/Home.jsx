@@ -3,6 +3,7 @@ import {View, Text} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import styles from './Home.style';
+import reactotron from 'reactotron-react-native';
 
 export default function HomeScreen({route, navigation}) {
   const {user} = route.params;

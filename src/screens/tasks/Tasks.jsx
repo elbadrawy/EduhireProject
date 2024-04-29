@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {useState, useEffect} from 'react';
 import {
   ActivityIndicator,
@@ -10,10 +11,12 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import Container from '../Container';
 import {Text, Divider} from '@rneui/themed';
 import reactotron from 'reactotron-react-native';
+import {Icon} from 'react-native-paper';
 
-export default function Tasks() {
+export default function Tasks({route, navigation}) {
+  const {userDetails} = route.params;
   const [loading, setLoading] = useState(true);
-  const [jobs, setJobs] = useState([]);
+  const [tasks, setTasks] = useState([]);
 
   const getMentorInfo = async mentorID => {
     const document = await mentorID.get();
@@ -21,43 +24,70 @@ export default function Tasks() {
   };
 
   useEffect(() => {
-    const fetchJobs = async () => {
-      try {
-        //Query here to get only tasks assigned to you or created by you if user type is mentor 
-        //need auth user passed here 
-        const querySnapshot = await firestore().collection('Tasks').get();
-        const jobsPromises = querySnapshot.docs.map(async documentSnapshot => {
-          let mentorData = await getMentorInfo(
-            documentSnapshot.data().mentorID,
+    const unsubscribe = navigation.addListener('focus', () => {
+      const fetchTasks = async () => {
+        try {
+          //Query here to get only tasks assigned to you or created by you if user type is mentor
+          //need auth user passed here
+          const querySnapshot = await firestore().collection('Tasks').get();
+          const tasksPromises = querySnapshot.docs.map(
+            async documentSnapshot => {
+              let mentorData = await getMentorInfo(
+                documentSnapshot.data().mentorID,
+              );
+              return {
+                ...documentSnapshot.data(),
+                key: documentSnapshot.id,
+                mentor: {...mentorData},
+              };
+            },
           );
-          return {
-            ...documentSnapshot.data(),
-            key: documentSnapshot.id,
-            mentor: {...mentorData},
-          };
-        });
-        const jobsData = await Promise.all(jobsPromises);
-        setJobs(jobsData);
-      } catch (error) {
-        console.error('Error fetching Tasks:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchJobs();
-  }, []);
+          const tasksData = await Promise.all(tasksPromises);
+          setTasks(tasksData);
+        } catch (error) {
+          console.error('Error fetching Tasks:', error);
+        } finally {
+          setLoading(false);
+        }
+      };
+      fetchTasks();
+    });
+    return unsubscribe;
+  }, [navigation]);
 
   if (loading) {
     return <ActivityIndicator style={{flex: 1, alignSelf: 'center'}} />;
   }
-  reactotron.log(jobs);
+
   return (
     <Container>
       <FlatList
-        data={jobs}
+        data={tasks}
         style={{flex: 1, padding: 15}}
-        ListHeaderComponent={() => <Text h3>My Tasks</Text>}
+        contentContainerStyle={{paddingBottom: 50}}
+        // eslint-disable-next-line react/no-unstable-nested-components
+        ListHeaderComponent={() => (
+          <View
+            style={{
+              justifyContent: 'space-between',
+              flexDirection: 'row',
+              alignItems: 'flex-end',
+            }}>
+            <Text h3>My Tasks</Text>
+            {userDetails.type === '2' && (
+              <TouchableOpacity onPress={() => navigation.push('applyNewTask')}>
+                <Icon source={'plus'} size={25} />
+              </TouchableOpacity>
+            )}
+          </View>
+        )}
+        // eslint-disable-next-line react/no-unstable-nested-components
+        ListEmptyComponent={() => (
+          <View
+            style={{flex: 1, alignSelf: 'center', justifyContent: 'center'}}>
+            <Text>No Tasks Available Yet</Text>
+          </View>
+        )}
         renderItem={({item}) => (
           <TouchableOpacity
             style={{padding: 15, backgroundColor: '#fff', margin: 10}}>

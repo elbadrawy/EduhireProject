@@ -25,7 +25,7 @@ export default function Container(props) {
       style={{
         flex: 1, // Paddings to handle safe area
         paddingTop: insets.top,
-        paddingBottom: insets.bottom,
+        //paddingBottom: insets.bottom,
         paddingLeft: insets.left,
         paddingRight: insets.right,
       }}>
