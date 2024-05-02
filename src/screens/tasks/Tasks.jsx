@@ -73,11 +73,19 @@ export default function Tasks({route, navigation}) {
               flexDirection: 'row',
               alignItems: 'flex-end',
             }}>
-            <Text h3>My Tasks</Text>
-            {userDetails.type === '2' && (
-              <TouchableOpacity onPress={() => navigation.push('applyNewTask')}>
-                <Icon source={'plus'} size={25} />
-              </TouchableOpacity>
+            <Text h3>{userDetails.type === '3' ? 'My Tasks' : 'Tasks'}</Text>
+            {userDetails.type === '3' && (
+              <View style={{flexDirection: 'row'}}>
+                <TouchableOpacity
+                  onPress={() => navigation.push('solvedTasks')}
+                  style={{marginRight: 10}}>
+                  <Icon source={'file-document-edit-outline'} size={25} />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => navigation.push('applyNewTask')}>
+                  <Icon source={'plus'} size={25} />
+                </TouchableOpacity>
+              </View>
             )}
           </View>
         )}

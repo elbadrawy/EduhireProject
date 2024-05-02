@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unstable-nested-components */
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import HomeScreen from '../screens/home/Home';
@@ -9,15 +10,15 @@ import Jobs from '../screens/jobs/Jobs';
 import Tasks from '../screens/tasks/Tasks';
 import Training from '../screens/training/Training';
 import SubmitJob from '../screens/jobs/SubmitJob';
-import reactotron from 'reactotron-react-native';
 import SubmitTask from '../screens/tasks/SubmitTask';
+import SubmitTraining from '../screens/training/SubmitTraining';
 
 export const MainStack = createNativeStackNavigator();
 export const PreLoginStack = createNativeStackNavigator();
 export const PostLoginStack = createMaterialBottomTabNavigator();
 export const JobStack = createNativeStackNavigator();
 
-export function PreLoginComponent(props) {
+export function PreLoginComponent() {
   return (
     <PreLoginStack.Navigator initialRouteName={'Login'}>
       <PreLoginStack.Screen name={'Login'} component={LoginScreen} />
@@ -46,7 +47,7 @@ export function PostLoginComponent({route}) {
         component={HomeScreen}
         options={{
           tabBarLabel: 'Home',
-          tabBarIcon: ({color}) => (
+          tabBarIcon: () => (
             <MaterialCommunityIcons name="home" color={'black'} size={26} />
           ),
         }}
@@ -57,7 +58,7 @@ export function PostLoginComponent({route}) {
         component={JobStackComponent}
         options={{
           tabBarLabel: 'Jobs',
-          tabBarIcon: ({color}) => (
+          tabBarIcon: () => (
             <MaterialCommunityIcons name="desk" color={'black'} size={26} />
           ),
         }}
@@ -69,7 +70,7 @@ export function PostLoginComponent({route}) {
         component={TaskStackComponent}
         options={{
           tabBarLabel: 'Tasks',
-          tabBarIcon: ({color}) => (
+          tabBarIcon: () => (
             <MaterialCommunityIcons name="home" color={'black'} size={26} />
           ),
         }}
@@ -78,10 +79,10 @@ export function PostLoginComponent({route}) {
         name={'TrainingScreen'}
         headerMode="none"
         initialParams={params}
-        component={Training}
+        component={TrainingStackComponent}
         options={{
           tabBarLabel: 'Training',
-          tabBarIcon: ({color}) => (
+          tabBarIcon: () => (
             <MaterialCommunityIcons name="home" color={'black'} size={26} />
           ),
         }}
@@ -109,6 +110,18 @@ export function JobStackComponent({route}) {
         component={SubmitJob}
         options={{headerTitle: 'Submit Job'}}
       />
+      <JobStack.Screen
+        name={'appliedJobs'}
+        initialParams={params}
+        component={SubmitJob}
+        options={{headerTitle: 'Applied Jobs'}}
+      />
+      <JobStack.Screen
+        name={'canadents'}
+        initialParams={params}
+        component={SubmitJob}
+        options={{headerTitle: 'Canadents'}}
+      />
     </JobStack.Navigator>
   );
 }
@@ -131,6 +144,46 @@ export function TaskStackComponent({route}) {
         initialParams={params}
         component={SubmitTask}
         options={{headerTitle: 'Submit Task'}}
+      />
+      <JobStack.Screen
+        name={'solvedTasks'}
+        initialParams={params}
+        component={SubmitTask}
+        options={{headerTitle: 'Solved Task'}}
+      />
+    </JobStack.Navigator>
+  );
+}
+
+export function TrainingStackComponent({route}) {
+  const {params} = route;
+  return (
+    <JobStack.Navigator initialRouteName={'TrainingScreen'}>
+      <JobStack.Screen
+        name={'TrainingScreen'}
+        initialParams={params}
+        component={Training}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <JobStack.Screen
+        name={'applyNewTraining'}
+        initialParams={params}
+        component={SubmitTraining}
+        options={{headerTitle: 'Submit Training'}}
+      />
+      <JobStack.Screen
+        name={'appliedTraining'}
+        initialParams={params}
+        component={SubmitTask}
+        options={{headerTitle: 'Applied Training'}}
+      />
+      <JobStack.Screen
+        name={'trainingCanadents'}
+        initialParams={params}
+        component={SubmitTask}
+        options={{headerTitle: 'Training Canadents'}}
       />
     </JobStack.Navigator>
   );

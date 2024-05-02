@@ -5,6 +5,7 @@ import firestore from '@react-native-firebase/firestore';
 import {ButtonGroup, Input, Button} from '@rneui/themed';
 import {Dropdown} from 'react-native-element-dropdown';
 import styles from './Login.style';
+import reactotron from 'reactotron-react-native';
 
 export default function LoginScreen({navigation}) {
   // Set an initializing state whilst Firebase connects
@@ -18,13 +19,24 @@ export default function LoginScreen({navigation}) {
     }
     auth()
       .signInWithEmailAndPassword(email, password)
-      .then(result => {
-        navigation.navigate('HomeScreen', {user: result.user});
+      .then(async result => {
+        await getUserDetails(result);
       })
       .catch(e => {
         Alert.alert('alert', e.toString());
       });
   }
+
+  const getUserDetails = async result => {
+    const userDetails = await firestore()
+      .collection('Users')
+      .doc(result?.user?.uid)
+      .get();
+    navigation.navigate('PostLoginStack', {
+      user: result.user,
+      userDetails: userDetails.data(),
+    });
+  };
 
   return (
     <ScrollView style={{flex: 1}} contentContainerStyle={styles.containerStyle}>

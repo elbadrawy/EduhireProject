@@ -39,17 +39,19 @@ export default function Jobs({route, navigation}) {
           } else {
             querySnapshot = await firestore().collection('Jobs').get();
           }
-  
-          const jobsPromises = querySnapshot.docs.map(async documentSnapshot => {
-            let companyData = await getCompanyInfo(
-              documentSnapshot.data().companyID,
-            );
-            return {
-              ...documentSnapshot.data(),
-              key: documentSnapshot.id,
-              company: {...companyData},
-            };
-          });
+
+          const jobsPromises = querySnapshot.docs.map(
+            async documentSnapshot => {
+              let companyData = await getCompanyInfo(
+                documentSnapshot.data().companyID,
+              );
+              return {
+                ...documentSnapshot.data(),
+                key: documentSnapshot.id,
+                company: {...companyData},
+              };
+            },
+          );
           const jobsData = await Promise.all(jobsPromises);
           setJobs(jobsData);
         } catch (error) {
@@ -66,7 +68,6 @@ export default function Jobs({route, navigation}) {
   if (loading) {
     return <ActivityIndicator style={{flex: 1, alignSelf: 'center'}} />;
   }
-
   return (
     <Container>
       <FlatList
@@ -82,10 +83,23 @@ export default function Jobs({route, navigation}) {
               alignItems: 'flex-end',
             }}>
             <Text h3>{userDetails.type === '2' ? 'My Jobs' : 'Jobs'}</Text>
-            {userDetails.type === '3' && (
-              <TouchableOpacity onPress={() => navigation.push('applyNewJob')}>
+            {userDetails.type === '2' ? (
+              <TouchableOpacity
+                onPress={() => navigation.push('applyNewJob')}
+                style={{flexDirection: 'row'}}>
                 <Icon source={'plus'} size={25} />
+                <View style={{marginLeft: 10}}>
+                  <Icon source={'file-document-edit-outline'} size={25} />
+                </View>
               </TouchableOpacity>
+            ) : (
+              userDetails.type === '1' && (
+                <TouchableOpacity
+                  onPress={() => navigation.push('appliedJobs')}
+                  style={{flexDirection: 'row'}}>
+                  <Icon source={'history'} size={25} />
+                </TouchableOpacity>
+              )
             )}
           </View>
         )}

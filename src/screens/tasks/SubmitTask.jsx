@@ -18,55 +18,33 @@ export default function SubmitTask({route, navigation: {goBack}}) {
   const [difficiultyLevel, setDifficiultyLevel] = useState();
   const [major, setMajor] = useState();
   const [attachmentURL, setAttachmentURL] = useState();
-  const [assignedUser, setAssignedUser] = useState();
-  const [users, setUsers] = useState();
 
-  useEffect(() => {
-    getUsers();
-  }, []);
+  useEffect(() => {}, []);
 
   const {params} = route;
+
   const _submitTask = async () => {
     const userRef = await firestore()
       .collection('Users')
       .doc(params?.userDetails?.uid);
-    let JobData = {
+    let taskData = {
       title,
       description,
-      location: [city, country],
-      requirements: {
-        education: education.split(','),
-        skills: skills.split(','),
-      },
-      companyID: userRef,
-      postDate: firestore.FieldValue.serverTimestamp(),
+      difficiultyLevel,
+      major,
+      mentorID: userRef,
+      attachment: attachmentURL,
     };
     firestore()
-      .collection('Jobs')
+      .collection('Tasks')
       .doc()
-      .set(JobData)
+      .set(taskData)
       .then(() => goBack());
   };
 
-  const getUsers = async () => {
-    let userFormatedData = [];
-    let usersData = await firestore()
-      .collection('Users')
-      .where('type', '==', '1')
-      .get();
-    usersData.forEach(doc => {
-      userFormatedData.push({
-        label: `${doc.data().firstname} ${doc.data().lastname}`,
-        value: doc,
-      });
-    });
-    setUsers(usersData);
-  };
   return (
     <ScrollView style={{flex: 1}} contentContainerStyle={styles.containerStyle}>
       <View style={{width: '100%', padding: 15}}>
-        {
-          /*
         <Dropdown
           style={styles.dropdown}
           placeholderStyle={styles.placeholderStyle}
@@ -85,9 +63,6 @@ export default function SubmitTask({route, navigation: {goBack}}) {
             setDifficiultyLevel(item.value);
           }}
         />
-          */
-        }
-
         <Input
           placeholder="Task Title"
           value={title}
@@ -95,26 +70,10 @@ export default function SubmitTask({route, navigation: {goBack}}) {
         />
         <Input
           placeholder="Task Description"
+          style={{height: 100}}
+          multiline
           value={description}
           onChangeText={v => setDescription(v)}
-        />
-        <Dropdown
-          style={styles.dropdown}
-          placeholderStyle={styles.placeholderStyle}
-          selectedTextStyle={styles.selectedTextStyle}
-          inputSearchStyle={styles.inputSearchStyle}
-          iconStyle={styles.iconStyle}
-          data={users}
-          search
-          maxHeight={300}
-          labelField="label"
-          valueField="value"
-          placeholder="Select Student"
-          searchPlaceholder="Search..."
-          value={assignedUser}
-          onChange={item => {
-            setAssignedUser(item.value);
-          }}
         />
         <Input
           placeholder="Student Major"
