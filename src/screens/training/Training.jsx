@@ -98,6 +98,11 @@ export default function Training({route, navigation}) {
     } else {
       return (
         <TouchableOpacity
+          onPress={() =>
+            navigation.push('trainingApply', {
+              training: item,
+            })
+          }
           style={{padding: 15, backgroundColor: '#fff', margin: 10}}>
           <Text h4>{item.title}</Text>
           <Text>{item.description}</Text>

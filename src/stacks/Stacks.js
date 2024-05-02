@@ -14,6 +14,8 @@ import SubmitTask from '../screens/tasks/SubmitTask';
 import SubmitTraining from '../screens/training/SubmitTraining';
 import JobCanadents from '../screens/jobs/JobCanadents';
 import TrainingCanandents from '../screens/training/TrainingCanadents';
+import JobApply from '../screens/jobs/JobApply';
+import TrainingApply from '../screens/training/TrainingApply';
 
 
 export const MainStack = createNativeStackNavigator();
@@ -128,6 +130,12 @@ export function JobStackComponent({route}) {
         component={JobCanadents}
         options={{headerTitle: 'Canadents'}}
       />
+      <JobStack.Screen
+        name={'jobApply'}
+        initialParams={params}
+        component={JobApply}
+        options={{headerTitle: 'Apply For Job'}}
+      />
     </JobStack.Navigator>
   );
 }
@@ -190,6 +198,12 @@ export function TrainingStackComponent({route}) {
         initialParams={params}
         component={TrainingCanandents}
         options={{headerTitle: 'Training Canadents'}}
+      />
+      <TrainingStack.Screen
+        name={'trainingApply'}
+        initialParams={params}
+        component={TrainingApply}
+        options={{headerTitle: 'Apply For Training'}}
       />
     </TrainingStack.Navigator>
   );

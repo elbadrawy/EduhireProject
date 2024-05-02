@@ -99,6 +99,11 @@ export default function Jobs({route, navigation}) {
     } else {
       return (
         <TouchableOpacity
+          onPress={() =>
+            navigation.push('jobApply', {
+              job: item,
+            })
+          }
           style={{padding: 15, backgroundColor: '#fff', margin: 10}}>
           <Text h4>{item.title}</Text>
           <Text>{item.description}</Text>
