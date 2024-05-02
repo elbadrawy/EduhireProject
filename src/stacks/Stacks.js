@@ -12,11 +12,17 @@ import Training from '../screens/training/Training';
 import SubmitJob from '../screens/jobs/SubmitJob';
 import SubmitTask from '../screens/tasks/SubmitTask';
 import SubmitTraining from '../screens/training/SubmitTraining';
+import JobCanadents from '../screens/jobs/JobCanadents';
+import TrainingCanandents from '../screens/training/TrainingCanadents';
+
 
 export const MainStack = createNativeStackNavigator();
 export const PreLoginStack = createNativeStackNavigator();
 export const PostLoginStack = createMaterialBottomTabNavigator();
 export const JobStack = createNativeStackNavigator();
+export const TasksStack = createNativeStackNavigator();
+export const TrainingStack = createNativeStackNavigator();
+
 
 export function PreLoginComponent() {
   return (
@@ -117,9 +123,9 @@ export function JobStackComponent({route}) {
         options={{headerTitle: 'Applied Jobs'}}
       />
       <JobStack.Screen
-        name={'canadents'}
+        name={'jobCanadents'}
         initialParams={params}
-        component={SubmitJob}
+        component={JobCanadents}
         options={{headerTitle: 'Canadents'}}
       />
     </JobStack.Navigator>
@@ -129,8 +135,8 @@ export function JobStackComponent({route}) {
 export function TaskStackComponent({route}) {
   const {params} = route;
   return (
-    <JobStack.Navigator initialRouteName={'TasksScreen'}>
-      <JobStack.Screen
+    <TasksStack.Navigator initialRouteName={'TasksScreen'}>
+      <TasksStack.Screen
         name={'TasksScreen'}
         initialParams={params}
         component={Tasks}
@@ -139,27 +145,27 @@ export function TaskStackComponent({route}) {
           headerTitle: 'My Tasks',
         }}
       />
-      <JobStack.Screen
+      <TasksStack.Screen
         name={'applyNewTask'}
         initialParams={params}
         component={SubmitTask}
         options={{headerTitle: 'Submit Task'}}
       />
-      <JobStack.Screen
+      <TasksStack.Screen
         name={'solvedTasks'}
         initialParams={params}
         component={SubmitTask}
         options={{headerTitle: 'Solved Task'}}
       />
-    </JobStack.Navigator>
+    </TasksStack.Navigator>
   );
 }
 
 export function TrainingStackComponent({route}) {
   const {params} = route;
   return (
-    <JobStack.Navigator initialRouteName={'TrainingScreen'}>
-      <JobStack.Screen
+    <TrainingStack.Navigator initialRouteName={'TrainingScreen'}>
+      <TrainingStack.Screen
         name={'TrainingScreen'}
         initialParams={params}
         component={Training}
@@ -167,24 +173,24 @@ export function TrainingStackComponent({route}) {
           headerShown: false,
         }}
       />
-      <JobStack.Screen
+      <TrainingStack.Screen
         name={'applyNewTraining'}
         initialParams={params}
         component={SubmitTraining}
         options={{headerTitle: 'Submit Training'}}
       />
-      <JobStack.Screen
+      <TrainingStack.Screen
         name={'appliedTraining'}
         initialParams={params}
         component={SubmitTask}
         options={{headerTitle: 'Applied Training'}}
       />
-      <JobStack.Screen
+      <TrainingStack.Screen
         name={'trainingCanadents'}
         initialParams={params}
-        component={SubmitTask}
+        component={TrainingCanandents}
         options={{headerTitle: 'Training Canadents'}}
       />
-    </JobStack.Navigator>
+    </TrainingStack.Navigator>
   );
 }

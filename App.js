@@ -12,6 +12,7 @@ import {
 } from 'react-native-safe-area-context';
 import firestore from '@react-native-firebase/firestore';
 import reactotron from 'reactotron-react-native';
+import Toast from 'react-native-toast-message';
 
 if (__DEV__) {
   require('./ReactotronConfig');
@@ -60,6 +61,7 @@ export default function App() {
           />
         </MainStack.Navigator>
       </NavigationContainer>
+      <Toast />
     </SafeAreaProvider>
   );
 }

@@ -2,6 +2,7 @@
 import React, {useState, useEffect} from 'react';
 import {
   ActivityIndicator,
+  Alert,
   FlatList,
   TouchableOpacity,
   View,
@@ -25,49 +26,109 @@ export default function Training({route, navigation}) {
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
-      const fetchJobs = async () => {
-        try {
-          let querySnapshot;
-          if (userDetails.type === '2') {
-            const userRef = await firestore()
-              .collection('Users')
-              .doc(userDetails.uid);
-            querySnapshot = await firestore()
-              .collection('Training')
-              .where('companyID', '==', userRef)
-              .get();
-          } else {
-            querySnapshot = await firestore().collection('Training').get();
-          }
-          const jobsPromises = querySnapshot.docs.map(
-            async documentSnapshot => {
-              let companyData = await getCompanyInfo(
-                documentSnapshot.data().companyID,
-              );
-              return {
-                ...documentSnapshot.data(),
-                key: documentSnapshot.id,
-                company: {...companyData},
-              };
-            },
-          );
-          const jobsData = await Promise.all(jobsPromises);
-          setJobs(jobsData);
-        } catch (error) {
-          console.error('Error fetching jobs:', error);
-        } finally {
-          setLoading(false);
-        }
-      };
-
-      fetchJobs();
+      fetchTrainings();
     });
     return unsubscribe;
   }, []);
 
+  const fetchTrainings = async () => {
+    try {
+      let querySnapshot;
+      if (userDetails.type === '2') {
+        const userRef = await firestore()
+          .collection('Users')
+          .doc(userDetails.uid);
+        querySnapshot = await firestore()
+          .collection('Training')
+          .where('companyID', '==', userRef)
+          .get();
+      } else {
+        querySnapshot = await firestore().collection('Training').get();
+      }
+      const jobsPromises = querySnapshot.docs.map(async documentSnapshot => {
+        let companyData = await getCompanyInfo(
+          documentSnapshot.data().companyID,
+        );
+        return {
+          ...documentSnapshot.data(),
+          key: documentSnapshot.id,
+          company: {...companyData},
+        };
+      });
+      const jobsData = await Promise.all(jobsPromises);
+      setJobs(jobsData);
+    } catch (error) {
+      console.error('Error fetching jobs:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   if (loading) {
     return <ActivityIndicator style={{flex: 1, alignSelf: 'center'}} />;
   }
+
+  const renderTrainingItem = ({item}) => {
+    if (userDetails.type === '2') {
+      return (
+        <TouchableOpacity
+          onPress={() =>
+            navigation.push('trainingCanadents', {
+              training: item,
+            })
+          }
+          style={{
+            padding: 15,
+            backgroundColor: '#fff',
+            margin: 10,
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+          }}>
+          <View style={{maxWidth: 300}}>
+            <Text h4>{item.title}</Text>
+            <Text>{item.description}</Text>
+            <Text>{item?.company?.companyInfo?.name}</Text>
+          </View>
+          <TouchableOpacity onPress={() => deleteTraining(item?.key)}>
+            <Icon source={'delete'} size={24} color="red" />
+          </TouchableOpacity>
+        </TouchableOpacity>
+      );
+    } else {
+      return (
+        <TouchableOpacity
+          style={{padding: 15, backgroundColor: '#fff', margin: 10}}>
+          <Text h4>{item.title}</Text>
+          <Text>{item.description}</Text>
+          <Text>{item?.company?.companyInfo?.name}</Text>
+        </TouchableOpacity>
+      );
+    }
+  };
+
+  const deleteTraining = async trainingID => {
+    Alert.alert('alert', 'Are you sure you want to delete this training ?', [
+      {
+        text: 'Sure',
+        onPress: async () => {
+          await firestore()
+            .collection('Training')
+            .doc(trainingID)
+            .delete()
+            .then(() => {
+              fetchTrainings();
+            })
+            .catch(e => {
+              reactotron.log('error', e);
+            });
+        },
+        style: 'cancel',
+      },
+      {text: 'Cancel', onPress: () => null},
+    ]);
+  };
+
   return (
     <Container>
       <FlatList
@@ -86,10 +147,6 @@ export default function Training({route, navigation}) {
             </Text>
             {userDetails.type === '2' ? (
               <View style={{flexDirection: 'row'}}>
-                <TouchableOpacity
-                  onPress={() => navigation.push('trainingCanadents')}>
-                  <Icon source={'file-document-edit-outline'} size={25} />
-                </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() => navigation.push('applyNewTraining')}>
                   <Icon source={'plus'} size={25} />
@@ -113,14 +170,7 @@ export default function Training({route, navigation}) {
             <Text>No Trainings Available Yet</Text>
           </View>
         )}
-        renderItem={({item}) => (
-          <TouchableOpacity
-            style={{padding: 15, backgroundColor: '#fff', margin: 10}}>
-            <Text h4>{item.title}</Text>
-            <Text>{item.description}</Text>
-            <Text>{item?.company?.companyInfo?.name}</Text>
-          </TouchableOpacity>
-        )}
+        renderItem={renderTrainingItem}
         ItemSeparatorComponent={() => <Divider />}
       />
     </Container>
