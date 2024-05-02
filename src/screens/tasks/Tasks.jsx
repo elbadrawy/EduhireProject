@@ -74,7 +74,7 @@ export default function Tasks({route, navigation}) {
               alignItems: 'flex-end',
             }}>
             <Text h3>{userDetails.type === '3' ? 'My Tasks' : 'Tasks'}</Text>
-            {userDetails.type === '3' && (
+            {userDetails.type === '3' ? (
               <View style={{flexDirection: 'row'}}>
                 <TouchableOpacity
                   onPress={() => navigation.push('solvedTasks')}
@@ -86,6 +86,14 @@ export default function Tasks({route, navigation}) {
                   <Icon source={'plus'} size={25} />
                 </TouchableOpacity>
               </View>
+            ) : (
+              userDetails.type === '1' && (
+                <TouchableOpacity
+                  onPress={() => navigation.push('taskHistory')}
+                  style={{flexDirection: 'row'}}>
+                  <Icon source={'history'} size={25} />
+                </TouchableOpacity>
+              )
             )}
           </View>
         )}

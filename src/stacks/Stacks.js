@@ -17,6 +17,9 @@ import TrainingCanandents from '../screens/training/TrainingCanadents';
 import JobApply from '../screens/jobs/JobApply';
 import TrainingApply from '../screens/training/TrainingApply';
 import TaskApply from '../screens/tasks/TaskApply';
+import JobHistory from '../screens/jobs/JobsHistory';
+import TrainingHistory from '../screens/training/TrainingHistory';
+import TaskHistory from '../screens/tasks/TaskHistory';
 
 
 export const MainStack = createNativeStackNavigator();
@@ -137,6 +140,12 @@ export function JobStackComponent({route}) {
         component={JobApply}
         options={{headerTitle: 'Apply For Job'}}
       />
+      <JobStack.Screen
+        name={'jobHistory'}
+        initialParams={params}
+        component={JobHistory}
+        options={{headerTitle: 'Job History'}}
+      />
     </JobStack.Navigator>
   );
 }
@@ -165,6 +174,12 @@ export function TaskStackComponent({route}) {
         initialParams={params}
         component={TaskApply}
         options={{headerTitle: 'Apply for Task'}}
+      />
+      <TasksStack.Screen
+        name={'taskHistory'}
+        initialParams={params}
+        component={TaskHistory}
+        options={{headerTitle: 'Task History'}}
       />
     </TasksStack.Navigator>
   );
@@ -205,6 +220,12 @@ export function TrainingStackComponent({route}) {
         initialParams={params}
         component={TrainingApply}
         options={{headerTitle: 'Apply For Training'}}
+      />
+      <TrainingStack.Screen
+        name={'trainingHistory'}
+        initialParams={params}
+        component={TrainingHistory}
+        options={{headerTitle: 'Training History'}}
       />
     </TrainingStack.Navigator>
   );

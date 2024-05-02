@@ -160,7 +160,7 @@ export default function Training({route, navigation}) {
             ) : (
               userDetails.type === '1' && (
                 <TouchableOpacity
-                  onPress={() => navigation.push('appliedTraining')}
+                  onPress={() => navigation.push('trainingHistory')}
                   style={{flexDirection: 'row'}}>
                   <Icon source={'history'} size={25} />
                 </TouchableOpacity>

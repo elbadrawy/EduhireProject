@@ -161,7 +161,7 @@ export default function Jobs({route, navigation}) {
             ) : (
               userDetails.type === '1' && (
                 <TouchableOpacity
-                  onPress={() => navigation.push('appliedJobs')}
+                  onPress={() => navigation.push('jobHistory')}
                   style={{flexDirection: 'row'}}>
                   <Icon source={'history'} size={25} />
                 </TouchableOpacity>
