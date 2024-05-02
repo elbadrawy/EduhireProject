@@ -16,6 +16,7 @@ import JobCanadents from '../screens/jobs/JobCanadents';
 import TrainingCanandents from '../screens/training/TrainingCanadents';
 import JobApply from '../screens/jobs/JobApply';
 import TrainingApply from '../screens/training/TrainingApply';
+import TaskApply from '../screens/tasks/TaskApply';
 
 
 export const MainStack = createNativeStackNavigator();
@@ -160,10 +161,10 @@ export function TaskStackComponent({route}) {
         options={{headerTitle: 'Submit Task'}}
       />
       <TasksStack.Screen
-        name={'solvedTasks'}
+        name={'taskApply'}
         initialParams={params}
-        component={SubmitTask}
-        options={{headerTitle: 'Solved Task'}}
+        component={TaskApply}
+        options={{headerTitle: 'Apply for Task'}}
       />
     </TasksStack.Navigator>
   );

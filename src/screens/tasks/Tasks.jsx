@@ -98,6 +98,11 @@ export default function Tasks({route, navigation}) {
         )}
         renderItem={({item}) => (
           <TouchableOpacity
+            onPress={() =>
+              navigation.push('taskApply', {
+                task: item,
+              })
+            }
             style={{padding: 15, backgroundColor: '#fff', margin: 10}}>
             <Text h4>{item.title}</Text>
             <Text>{item.description}</Text>
