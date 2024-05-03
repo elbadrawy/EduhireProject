@@ -22,13 +22,16 @@ export default function Container(props) {
   }
   return (
     <View
-      style={{
-        flex: 1, // Paddings to handle safe area
-        paddingTop: insets.top,
-        //paddingBottom: insets.bottom,
-        paddingLeft: insets.left,
-        paddingRight: insets.right,
-      }}>
+      style={[
+        props.containerStyle,
+        {
+          flex: 1, // Paddings to handle safe area
+          paddingTop: insets.top,
+          //paddingBottom: insets.bottom,
+          paddingLeft: insets.left,
+          paddingRight: insets.right,
+        },
+      ]}>
       {children}
     </View>
   );
