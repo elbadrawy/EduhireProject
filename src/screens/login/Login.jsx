@@ -64,9 +64,11 @@ export default function LoginScreen({navigation}) {
           secureTextEntry={true}
           onChangeText={v => setPassword(v)}
         />
-        <Button title="login" onPress={() => login()} />
+        <View style={{marginBottom: 20}}>
+          <Button title="login" onPress={() => login()} />
+        </View>
+
         <Button
-          style={{marginTop: 20}}
           title="sign up"
           onPress={() => navigation.navigate('rejesterScreen')}
         />

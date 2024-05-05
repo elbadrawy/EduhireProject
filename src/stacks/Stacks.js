@@ -85,7 +85,11 @@ export function PostLoginComponent({route}) {
         options={{
           tabBarLabel: 'Tasks',
           tabBarIcon: () => (
-            <MaterialCommunityIcons name="home" color={'black'} size={26} />
+            <MaterialCommunityIcons
+              name="format-list-bulleted"
+              color={'black'}
+              size={26}
+            />
           ),
         }}
       />
@@ -97,7 +101,11 @@ export function PostLoginComponent({route}) {
         options={{
           tabBarLabel: 'Training',
           tabBarIcon: () => (
-            <MaterialCommunityIcons name="home" color={'black'} size={26} />
+            <MaterialCommunityIcons
+              name="progress-pencil"
+              color={'black'}
+              size={26}
+            />
           ),
         }}
       />

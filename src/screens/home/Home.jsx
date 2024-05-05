@@ -10,7 +10,7 @@ import {
   FlatList,
   Button,
 } from 'react-native';
-import {IconButton} from 'react-native-paper';
+import {ActivityIndicator, IconButton} from 'react-native-paper';
 import auth, {firebase} from '@react-native-firebase/auth';
 import {useNavigation} from '@react-navigation/native';
 import Container from '../Container';
@@ -136,7 +136,7 @@ export default function HomeScreen({route}) {
   };
   const fetchPosts = async (refresh = false) => {
     try {
-      refresh && setRefreshLoading(true);
+      refresh ? setRefreshLoading(true) : setLoading(true);
       let querySnapshot = await firestore().collection('Posts').get();
       const PostsPromises = querySnapshot.docs.map(async documentSnapshot => {
         let UserData = await getUserInfo(documentSnapshot.data().userID);
@@ -148,9 +148,11 @@ export default function HomeScreen({route}) {
       });
       const postsData = await Promise.all(PostsPromises);
       setPosts(postsData);
+      setLoading(false);
       refresh && setRefreshLoading(false);
     } catch (error) {
       refresh && setRefreshLoading(false);
+      setLoading(false);
       console.error('Error fetching Posts:', error);
     }
   };
@@ -158,17 +160,19 @@ export default function HomeScreen({route}) {
   const username = user.email;
 
   const submitPost = async content => {
-    const userRef = await firestore().collection('Users').doc(user?.uid);
-    firestore()
-      .collection('Posts')
-      .doc()
-      .set({
-        content,
-        likedUsers: [],
-        postDate: firestore.FieldValue.serverTimestamp(),
-        userID: userRef,
-      })
-      .then(() => fetchPosts());
+    if (content.length > 0) {
+      const userRef = await firestore().collection('Users').doc(user?.uid);
+      firestore()
+        .collection('Posts')
+        .doc()
+        .set({
+          content,
+          likedUsers: [],
+          postDate: firestore.FieldValue.serverTimestamp(),
+          userID: userRef,
+        })
+        .then(() => fetchPosts());
+    }
   };
 
   return (
@@ -182,13 +186,17 @@ export default function HomeScreen({route}) {
         data={posts}
         onRefresh={() => fetchPosts(true)}
         refreshing={refreshLoading}
-        ItemSeparatorComponent={() => <View style={{marginTop: 10}}/>}
-        ListEmptyComponent={() => (
-          <View
-            style={{flex: 1, alignSelf: 'center', justifyContent: 'center'}}>
-            <Text>No Posts Available Yet</Text>
-          </View>
-        )}
+        ItemSeparatorComponent={() => <View style={{marginTop: 10}} />}
+        ListEmptyComponent={() =>
+          loading ? (
+            <ActivityIndicator style={{flex: 1, alignSelf: 'center'}} />
+          ) : (
+            <View
+              style={{flex: 1, alignSelf: 'center', justifyContent: 'center'}}>
+              <Text>No Posts Available Yet</Text>
+            </View>
+          )
+        }
         keyExtractor={item => item.key}
         renderItem={({item}) => {
           let username;

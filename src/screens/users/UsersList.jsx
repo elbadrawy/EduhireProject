@@ -30,6 +30,7 @@ export default function UsersList({route, navigation}) {
   }, [navigation]);
 
   const fetchUsers = async (tab = null) => {
+    setLoading(true);
     try {
       tab && setActiveTab(tab);
       setUsers([]);
@@ -45,10 +46,6 @@ export default function UsersList({route, navigation}) {
       setLoading(false);
     }
   };
-
-  if (loading) {
-    return <ActivityIndicator style={{flex: 1, alignSelf: 'center'}} />;
-  }
 
   const renderUserItem = ({item}) => {
     if (activeTab === '1') {
@@ -227,12 +224,16 @@ export default function UsersList({route, navigation}) {
         contentContainerStyle={{paddingBottom: 50}}
         ListHeaderComponent={() => renderTopTaps()}
         // eslint-disable-next-line react/no-unstable-nested-components
-        ListEmptyComponent={() => (
-          <View
-            style={{flex: 1, alignSelf: 'center', justifyContent: 'center'}}>
-            <Text>No Users Available Yet</Text>
-          </View>
-        )}
+        ListEmptyComponent={() =>
+          loading ? (
+            <ActivityIndicator style={{flex: 1, alignSelf: 'center'}} />
+          ) : (
+            <View
+              style={{flex: 1, alignSelf: 'center', justifyContent: 'center'}}>
+              <Text>No Users Available Yet</Text>
+            </View>
+          )
+        }
         renderItem={renderUserItem}
         ItemSeparatorComponent={() => <Divider />}
       />

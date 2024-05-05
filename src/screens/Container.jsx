@@ -10,7 +10,7 @@ export default function Container(props) {
       <ScrollView
         style={{flex: 1}}
         contentContainerStyle={{
-          flex: 1, // Paddings to handle safe area
+          flexGrow: 1, // Paddings to handle safe area
           paddingTop: insets.top,
           paddingBottom: insets.bottom,
           paddingLeft: insets.left,
