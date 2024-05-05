@@ -13,6 +13,7 @@ import Container from '../Container';
 import {Text, Divider} from '@rneui/themed';
 import reactotron from 'reactotron-react-native';
 import {Icon} from 'react-native-paper';
+import TaskStatusBox from './TaskStatusComponent';
 
 export default function Tasks({route, navigation}) {
   const {userDetails} = route.params;
@@ -153,9 +154,14 @@ export default function Tasks({route, navigation}) {
                   <Text>{item.description}</Text>
                   <Text>{item?.mentor?.mentorDetails?.name}</Text>
                 </View>
-                <TouchableOpacity onPress={() => deleteTask(item?.key)}>
-                  <Icon source={'delete'} size={24} color="red" />
-                </TouchableOpacity>
+                <View>
+                  <TaskStatusBox difficultyLevel={item.difficiultyLevel} />
+                  <TouchableOpacity
+                    style={{alignSelf: 'flex-end'}}
+                    onPress={() => deleteTask(item?.key)}>
+                    <Icon source={'delete'} size={24} color="red" />
+                  </TouchableOpacity>
+                </View>
               </TouchableOpacity>
             );
           } else if (userDetails.type === '1') {

@@ -79,7 +79,7 @@ export default function TaskCanadents({route, navigation}) {
         </Text>
         <Text>
           <Text style={{fontWeight: '600', fontSize: 18}}>Description:</Text>{' '}
-          {item.Description}
+          {item.description}
         </Text>
         <Text>
           <Text h6 style={{fontWeight: '600', fontSize: 18}}>
