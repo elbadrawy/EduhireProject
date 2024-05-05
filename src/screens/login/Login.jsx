@@ -2,10 +2,15 @@ import React, {useState, useEffect} from 'react';
 import {View, ScrollView, Alert} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
-import {ButtonGroup, Input, Button} from '@rneui/themed';
+import {ButtonGroup, Input, Button, Icon} from '@rneui/themed';
 import {Dropdown} from 'react-native-element-dropdown';
 import styles from './Login.style';
 import reactotron from 'reactotron-react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { Image, Text, color } from '@rneui/base';
+import { TextInput } from 'react-native-paper';
+
+
 
 export default function LoginScreen({navigation}) {
   // Set an initializing state whilst Firebase connects
@@ -51,8 +56,58 @@ export default function LoginScreen({navigation}) {
   };
 
   return (
-    <ScrollView style={{flex: 1}} contentContainerStyle={styles.containerStyle}>
-      <View style={{width: '100%', padding: 15}}>
+    <ScrollView style={{flex: 1, backgroundColor:"#6750A4"}} contentContainerStyle={styles.containerStyle}>
+      
+      <SafeAreaView className="flex">
+        <View className="flex-row justify-center">
+            <Text style={styles.brandName}>EDUHIRE</Text>
+            {/* <Image source={require("../images/logo1.png")} style={{width:200, height:200}}/> */}
+        </View>
+      </SafeAreaView>
+      <View style={styles.bottomScreen}>
+        <Text style={styles.label}>Email</Text>
+        <TextInput 
+          placeholder="ahmad@gmail.com"
+          value={email}
+          onChangeText={v => setEmail(v)}
+          style={styles.email}
+           />
+        
+        <Text style={styles.label}>Password</Text>
+        <TextInput 
+          placeholder="Enter Password"
+          value={password}
+          secureTextEntry={true}
+          onChangeText={v => setPassword(v)}
+          style={styles.email}
+        />
+        
+        <View>
+          <Button title="Login" onPress={() => login()}
+            buttonStyle={{borderRadius:25, backgroundColor:'#6750A4', marginBottom:20,marginTop:20,padding:13,}}
+            icon={<Icon name='login' color={'white'} size={18}/>}
+            iconRight
+            titleStyle={{marginHorizontal:5}}
+          />
+
+        </View>
+        <Text style={styles.orDivider}>OR</Text>
+         
+        <Button
+          title="sign up"
+          onPress={() => navigation.navigate('rejesterScreen')}
+          buttonStyle={{borderRadius:25, backgroundColor:'#6750A4',padding:13,type:'outline' }}
+          
+        />
+
+      </View>
+      
+      
+      
+      
+      
+      
+      {/* <View style={{width: '100%', padding: 15}}>
         <Input
           placeholder="Email"
           value={email}
@@ -72,7 +127,8 @@ export default function LoginScreen({navigation}) {
           title="sign up"
           onPress={() => navigation.navigate('rejesterScreen')}
         />
-      </View>
+      </View> */}
     </ScrollView>
   );
 }
+

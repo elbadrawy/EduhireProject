@@ -4,6 +4,7 @@ import {
   ActivityIndicator,
   Alert,
   FlatList,
+  StyleSheet,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -78,21 +79,15 @@ export default function Jobs({route, navigation}) {
               job: item,
             })
           }
-          style={{
-            padding: 15,
-            backgroundColor: '#fff',
-            margin: 10,
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-          }}>
-          <View style={{maxWidth: 300}}>
-            <Text h4>{item.title}</Text>
-            <Text>{item.description}</Text>
-            <Text>{item?.company?.companyInfo?.name}</Text>
+          style={styles.myJobList}
+          >
+          <View style={styles.jobHolder}>
+            <Text h4 style={styles.myJobTitle}>{item.title}</Text>
+            <Text style={styles.myJobDescription}>{item.description}</Text>
+            <Text style={styles.companyName}>{item?.company?.companyInfo?.name}</Text>
           </View>
-          <TouchableOpacity onPress={() => deleteJob(item?.key)}>
-            <Icon source={'delete'} size={24} color="red" />
+          <TouchableOpacity onPress={() => deleteJob(item?.key)} style={styles.removeIcon}>
+            <Icon source={'delete'} size={24} color="#b60202" />
           </TouchableOpacity>
         </TouchableOpacity>
       );
@@ -190,3 +185,51 @@ export default function Jobs({route, navigation}) {
     </Container>
   );
 }
+
+const styles = StyleSheet.create({
+  myJobList:{
+    // borderWidth:2,
+    // padding: 15,
+    backgroundColor: '#fff',
+    margin: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    
+    justifyContent: 'center',
+    borderRadius:20,
+    minHeight:150,
+
+    shadowColor:"#333333",
+
+    
+    shadowOfset:{
+    width:10,
+    height:10,
+    
+    
+    },
+    shadowOpacity:0.9,
+    shadowRadius:4,
+    elevation:15,
+
+  },
+  removeIcon:{
+    position:'relative',
+    bottom:50,
+    left:30,
+  },
+  jobHolder:{
+    textAlign:'center',
+    alignItems:'center',
+    flexDirection:'column',
+    gap:15,
+  },
+  companyName:{
+    borderWidth:1,
+    padding:8,
+    borderTopRightRadius:20,
+    borderBottomLeftRadius:20,
+    borderColor:"#8C14FC",
+    fontWeight:'bold',
+  }
+})

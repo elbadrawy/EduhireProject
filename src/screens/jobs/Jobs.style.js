@@ -29,4 +29,7 @@ export default StyleSheet.create({
     height: 40,
     fontSize: 16,
   },
+  myJobList:{
+    
+  }
 });

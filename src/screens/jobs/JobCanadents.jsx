@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState, useEffect} from 'react';
-import {ActivityIndicator, FlatList, View} from 'react-native';
+import {ActivityIndicator, FlatList, StyleSheet, View} from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import {Text, Divider} from '@rneui/themed';
 import Toast from 'react-native-toast-message';
@@ -70,19 +70,19 @@ export default function JobCanadents({route, navigation}) {
   const renderStudentItem = ({item}) => {
     const {student} = item;
     return (
-      <View style={{padding: 15, backgroundColor: '#fff', margin: 10}}>
-        <Text h4>
+      <View style={styles.candidates}>
+        <Text h4 style={styles.candidateName}>
           <Text h4 style={{fontWeight: '600', fontSize: 18}}>
             Name:
           </Text>{' '}
           {student.firstname} {student.lastname}
         </Text>
         <Text>
-          <Text style={{fontWeight: '600', fontSize: 18}}>CoverLatter:</Text>{' '}
+          <Text style={{fontWeight: '600', fontSize: 18}}></Text>
           {item.coverLetter}
         </Text>
-        <Text>
-          <Text h6 style={{fontWeight: '600', fontSize: 18}}>
+        <Text style={styles.resumeLink}>
+          <Text h6 style={{fontWeight: '600', fontSize: 14}}>
             Resume Link:
           </Text>{' '}
           <Text style={{color: 'blue'}} onPress={() => showToast(item.resume)}>
@@ -94,29 +94,82 @@ export default function JobCanadents({route, navigation}) {
   };
 
   return (
-    <FlatList
-      data={jobsApplyingData}
-      style={{flex: 1, padding: 15}}
-      contentContainerStyle={{flex: 1, paddingBottom: 50}}
-      // eslint-disable-next-line react/no-unstable-nested-components
-      ListHeaderComponent={() => (
-        <View
-          style={{
-            justifyContent: 'space-between',
-            flexDirection: 'row',
-            alignItems: 'flex-end',
-          }}>
-          <Text h3>{job.title}</Text>
-        </View>
-      )}
-      // eslint-disable-next-line react/no-unstable-nested-components
-      ListEmptyComponent={() => (
-        <View style={{flex: 1, alignSelf: 'center', justifyContent: 'center'}}>
-          <Text>No applying Students for this job Yet</Text>
-        </View>
-      )}
-      renderItem={renderStudentItem}
-      ItemSeparatorComponent={() => <Divider />}
-    />
+    < >
+      <Text h3 style={styles.jobTitle}>{job.title}</Text>
+      <FlatList
+        data={jobsApplyingData}
+        style={styles.applyingList}
+        contentContainerStyle={{flex: 1, paddingBottom: 50}}
+        // eslint-disable-next-line react/no-unstable-nested-components
+        ListHeaderComponent={() => (
+          <View
+            style={{
+              justifyContent: 'space-between',
+              flexDirection: 'row',
+              alignItems: 'flex-end',
+            }}>
+            
+          </View>
+        )}
+        // eslint-disable-next-line react/no-unstable-nested-components
+        ListEmptyComponent={() => (
+          <View style={{flex: 1, alignSelf: 'center', justifyContent: 'center'}}>
+            <Text>No applying Students for this job Yet</Text>
+          </View>
+        )}
+        renderItem={renderStudentItem}
+        ItemSeparatorComponent={() => <Divider />}
+      />
+    </>
   );
 }
+const styles = StyleSheet.create({
+  jobTitle:{
+    // borderWidth:4,
+    textAlign:'center',
+  },
+  applyingList:{
+    flex: 1, padding: 15,
+    borderWidth:1,
+    backgroundColor:'white', 
+    borderColor:'rgba(0,0,0,0.07)',
+    marginTop:5,
+    borderTopRightRadius:50,
+    borderTopLeftRadius:50,
+    shadowColor:"#1f1e1e",
+    shadowOfset:{
+    width:10,
+    height:10,
+    
+    },
+    shadowOpacity:0.9,
+    shadowRadius:4,
+    elevation:15,
+  },
+  candidates:{
+    padding: 15,
+    backgroundColor: '#fff',
+    margin: 10,
+    minHeight:150,
+    maxHeight:350,
+    borderRadius:20,
+    shadowColor:"#1f1e1e",
+    shadowOfset:{
+    width:10,
+    height:10,
+    
+    },
+    shadowOpacity:0.9,
+    shadowRadius:4,
+    elevation:15,
+
+    flexDirection:'column',
+    gap:10,
+  },
+  candidateName:{
+    textAlign:'center',
+  },
+  resumeLink:{
+    
+  }
+})

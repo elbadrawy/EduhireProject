@@ -35,7 +35,7 @@ export const UsersStack = createNativeStackNavigator();
 export function PreLoginComponent() {
   return (
     <PreLoginStack.Navigator initialRouteName={'Login'}>
-      <PreLoginStack.Screen name={'Login'} component={LoginScreen} />
+      <PreLoginStack.Screen name={'Login'}  component={LoginScreen}  />
       <PreLoginStack.Screen
         name={'rejesterScreen'}
         component={RejesterScreen}

@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   FlatList,
-  Button,
+  // Button,
 } from 'react-native';
 import {ActivityIndicator, IconButton} from 'react-native-paper';
 import auth, {firebase} from '@react-native-firebase/auth';
@@ -16,6 +16,8 @@ import {useNavigation} from '@react-navigation/native';
 import Container from '../Container';
 import firestore from '@react-native-firebase/firestore';
 import reactotron from 'reactotron-react-native';
+import { Button, Icon } from '@rneui/base';
+
 
 const WelcomeMessage = ({username}) => {
   return (
@@ -58,8 +60,8 @@ const Post = ({
     return `${year}-${month}-${day}`;
   };
 
-  return (
-    <View style={[styles.container]}>
+  return ( // Post Body
+    <View style={[styles.postBody]}>
       <View style={styles.postHeader}>
         <Text style={styles.username}>{username}</Text>
         <Text style={styles.date}>{formatPostDate(date)}</Text>
@@ -89,7 +91,7 @@ const NewPostInput = ({submitPost}) => {
     setNewPost('');
   };
 
-  return (
+  return ( // Write Post
     <View style={styles.inputContainer}>
       <TextInput
         style={styles.input}
@@ -179,7 +181,11 @@ export default function HomeScreen({route}) {
     <Container containerStyle={styles.container}>
       <View style={styles.header}>
         <WelcomeMessage username={username} />
-        <Button title="Sign Out" onPress={signOut} />
+        <Button type='solid' onPress={signOut}
+          buttonStyle={{borderRadius:70, padding:2, backgroundColor:'transparent'}}
+          icon={<Icon name='logout' color={'#9e1313'}/>}
+          
+        />
       </View>
       <NewPostInput submitPost={submitPost} />
       <FlatList
@@ -245,30 +251,79 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     paddingHorizontal: 15,
     paddingTop: 20,
+    borderWidth:1,
+    borderColor:"rgba(0, 0, 0, 0.09)",
+    
+  },
+  postBody:{
+    flex: 1,
+    backgroundColor: '#fff',
+    justifyContent:'space-between',
+    paddingHorizontal: 15,
+    paddingTop: 5,
+    borderWidth:1,
+    borderColor:"rgba(0, 0, 0, 0.2)",
+    margin:5,
+    borderRadius:10,
+    shadowColor:"#333333",
+    minHeight:150,
+    maxHeight:250,
+    
+    shadowOfset:{
+    width:10,
+    height:10,
+    
+    
+    },
+    shadowOpacity:0.9,
+    shadowRadius:4,
+    elevation:17,
+
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 20,
+    padding:10,
+    backgroundColor:'#6750A4',
+    // borderWidth:2,
+    borderBottomWidth:1,
+    borderBottomColor:"rgba(0,0,0,0.2)",
+    borderBottomLeftRadius:10,
+    borderBottomRightRadius:10,
+    shadowColor:"#333333",
+    shadowOfset:{
+    width:10,
+    height:10,
+    
+    },
+    shadowOpacity:0.9,
+    shadowRadius:4,
+    
   },
   welcomeContainer: {
     paddingHorizontal: 15,
+    
   },
   welcomeText: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 'bold',
+    color:'white',
   },
   postHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginBottom: 10,
+    borderBottomWidth:1,
+    borderBottomColor:"rgba(0,0, 0, 0.4)"
   },
   username: {
     fontWeight: 'bold',
+    color:'#6650a4d9',
   },
   date: {
-    color: '#777',
+    color: '#777777a5',
   },
   content: {
     marginBottom: 10,
@@ -276,30 +331,65 @@ const styles = StyleSheet.create({
   likeButton: {
     flexDirection: 'row',
     alignItems: 'center',
+    
+    // borderTopWidth:1,
+    // borderTopColor:'rgba(0,0,0,0.2)',
+    
   },
   likeCount: {
     marginLeft: 5,
   },
   inputContainer: {
-    flexDirection: 'row',
+    flexDirection: 'column',
+    justifyContent:'center',
+    alignItems:'center',
     marginBottom: 20,
     paddingHorizontal: 15,
+    // borderWidth:2,
+    minHeight:150,
+    maxHeight:200,
+    gap:5,
+    borderBottomWidth:1,
+    borderBottomColor:"rgba(0, 0, 0,0.3)",
+    paddingBottom:10,
+    
   },
   input: {
     flex: 1,
-    borderWidth: 1,
+    borderWidth: 0.5,
     borderColor: '#ccc',
-    borderRadius: 5,
+    backgroundColor:'white',
+    borderRadius: 10,
     padding: 10,
-    marginRight: 10,
+    // marginRight: 10,
+    width:'100%',
+    shadowColor:"#333333",
+    shadowOfset:{
+    width:10,
+    height:10,
+    
+    },
+    shadowOpacity:0.9,
+    shadowRadius:4,
+    elevation:17,
   },
   postButton: {
-    backgroundColor: '#5890FF',
+    backgroundColor: '#6750A4',
     borderRadius: 5,
     paddingVertical: 10,
     paddingHorizontal: 15,
     alignItems: 'center',
     justifyContent: 'center',
+    width:200,
+    shadowColor:"#333333",
+    shadowOfset:{
+    width:10,
+    height:10,
+    
+    },
+    shadowOpacity:0.9,
+    shadowRadius:4,
+    elevation:17,
   },
   postButtonText: {
     color: '#fff',

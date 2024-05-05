@@ -29,4 +29,66 @@ export default StyleSheet.create({
     height: 40,
     fontSize: 16,
   },
+  brandName:{
+    fontSize:60,
+    fontFamily:'cursive',
+    color:'whitesmoke',
+    marginBottom:70,
+    marginTop:70,
+  },
+  bottomScreen:{
+    backgroundColor:'white',
+    flex:1,
+    width:"100%",
+    paddingTop:30,
+    paddingRight:30,
+    paddingLeft:30,
+    // display:'flex',
+    // justifyContent:'center',
+    // alignItems:'center',
+
+    borderTopLeftRadius:50,
+    borderTopRightRadius:50,
+
+    shadowColor:"#333333",
+    shadowOfset:{
+    width:10,
+    height:10,
+    
+    },
+    shadowOpacity:0.9,
+    shadowRadius:4,
+    elevation:17,
+
+  },
+  label:{
+    marginLeft:10,
+    marginBottom:10,
+    fontWeight:'bold',
+    color:'grey',
+  },
+  email:{
+    borderRadius:20,
+    marginBottom:20,
+    borderTopLeftRadius:20,
+    borderTopRightRadius:20,
+  },
+  password:{
+    backgroundColor:'#bdbdbd',
+    padding:10,
+    borderRadius:20,
+    marginBottom:20,
+    borderTopLeftRadius:20,
+    borderTopRightRadius:20,
+    width:100,
+  },
+  orDivider:{
+    width:'100%',
+    
+    textAlign:"center",
+    fontSize:16,
+    fontWeight:'bold',
+    color:'grey',
+    marginBottom:20,
+  }
 });
