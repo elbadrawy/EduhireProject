@@ -86,6 +86,7 @@ export default function Rejester({navigation}) {
               jobTitle: mentorJobTitle,
             },
             type: type,
+            mentorStatus: 0,
           };
         }
         firestore()

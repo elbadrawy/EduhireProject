@@ -33,6 +33,7 @@ export default function Tasks({route, navigation}) {
   }, [navigation]);
 
   const fetchTasks = async () => {
+    reactotron.log('1');
     try {
       //Query here to get only tasks assigned to you or created by you if user type is mentor
       //need auth user passed here
@@ -56,7 +57,9 @@ export default function Tasks({route, navigation}) {
           mentor: {...mentorData},
         };
       });
+      reactotron.log('2');
       const tasksData = await Promise.all(tasksPromises);
+      reactotron.log('3', tasksData);
       setTasks(tasksData);
     } catch (error) {
       console.error('Error fetching Tasks:', error);
@@ -92,6 +95,17 @@ export default function Tasks({route, navigation}) {
     ]);
   };
 
+  const checkStatusAndPush = () => {
+    if (userDetails.mentorStatus && userDetails.mentorStatus === '1') {
+      navigation.push('applyNewTask');
+    } else {
+      Alert.alert(
+        'alert',
+        "You can't add a new task because you are not approved yet. Stay tuned!",
+      );
+    }
+  };
+
   return (
     <Container>
       <FlatList
@@ -109,8 +123,7 @@ export default function Tasks({route, navigation}) {
             <Text h3>{userDetails.type === '3' ? 'My Tasks' : 'Tasks'}</Text>
             {userDetails.type === '3' ? (
               <View style={{flexDirection: 'row'}}>
-                <TouchableOpacity
-                  onPress={() => navigation.push('applyNewTask')}>
+                <TouchableOpacity onPress={checkStatusAndPush}>
                   <Icon source={'plus'} size={25} />
                 </TouchableOpacity>
               </View>

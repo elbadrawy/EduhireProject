@@ -29,6 +29,7 @@ export const PostLoginStack = createMaterialBottomTabNavigator();
 export const JobStack = createNativeStackNavigator();
 export const TasksStack = createNativeStackNavigator();
 export const TrainingStack = createNativeStackNavigator();
+export const UsersStack = createNativeStackNavigator();
 
 
 export function PreLoginComponent() {
@@ -77,7 +78,7 @@ export function PostLoginComponent({route}) {
         }}
       />
       <PostLoginStack.Screen
-        name={'TasksScreen'}
+        name={'TasksStack'}
         headerMode="none"
         initialParams={params}
         component={TaskStackComponent}
@@ -235,5 +236,21 @@ export function TrainingStackComponent({route}) {
         options={{headerTitle: 'Training History'}}
       />
     </TrainingStack.Navigator>
+  );
+}
+
+export function UsersStackComponent({route}) {
+  const {params} = route;
+  return (
+    <UsersStack.Navigator initialRouteName={'UsersScreen'}>
+      <UsersStack.Screen
+        name={'UsersScreen'}
+        initialParams={params}
+        component={Training}
+        options={{
+          headerShown: false,
+        }}
+      />
+    </UsersStack.Navigator>
   );
 }
