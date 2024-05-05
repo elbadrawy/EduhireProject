@@ -27,15 +27,27 @@ export default function LoginScreen({navigation}) {
       });
   }
 
+  const signOut = () => {
+    auth().signOut();
+  };
+
   const getUserDetails = async result => {
     const userDetails = await firestore()
       .collection('Users')
       .doc(result?.user?.uid)
       .get();
-    navigation.navigate('PostLoginStack', {
-      user: result.user,
-      userDetails: userDetails.data(),
-    });
+    if (userDetails.data().blocked === '1') {
+      signOut();
+      Alert.alert(
+        'error',
+        'User is blocked please contact us to unblock the user',
+      );
+    } else {
+      navigation.navigate('PostLoginStack', {
+        user: result.user,
+        userDetails: userDetails.data(),
+      });
+    }
   };
 
   return (

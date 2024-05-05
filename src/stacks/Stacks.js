@@ -21,7 +21,8 @@ import JobHistory from '../screens/jobs/JobsHistory';
 import TrainingHistory from '../screens/training/TrainingHistory';
 import TaskHistory from '../screens/tasks/TaskHistory';
 import TaskCanadents from '../screens/tasks/TaskCanadents';
-
+import UsersList from '../screens/users/UsersList';
+import reactotron from 'reactotron-react-native';
 
 export const MainStack = createNativeStackNavigator();
 export const PreLoginStack = createNativeStackNavigator();
@@ -30,7 +31,6 @@ export const JobStack = createNativeStackNavigator();
 export const TasksStack = createNativeStackNavigator();
 export const TrainingStack = createNativeStackNavigator();
 export const UsersStack = createNativeStackNavigator();
-
 
 export function PreLoginComponent() {
   return (
@@ -90,7 +90,7 @@ export function PostLoginComponent({route}) {
         }}
       />
       <PostLoginStack.Screen
-        name={'TrainingScreen'}
+        name={'TrainingStack'}
         headerMode="none"
         initialParams={params}
         component={TrainingStackComponent}
@@ -101,6 +101,24 @@ export function PostLoginComponent({route}) {
           ),
         }}
       />
+      {params?.userDetails?.type === '0' && (
+        <PostLoginStack.Screen
+          name={'UsersList'}
+          headerMode="none"
+          initialParams={params}
+          component={UsersStackComponent}
+          options={{
+            tabBarLabel: 'Users',
+            tabBarIcon: () => (
+              <MaterialCommunityIcons
+                name="account"
+                color={'black'}
+                size={26}
+              />
+            ),
+          }}
+        />
+      )}
     </PostLoginStack.Navigator>
   );
 }
@@ -246,7 +264,7 @@ export function UsersStackComponent({route}) {
       <UsersStack.Screen
         name={'UsersScreen'}
         initialParams={params}
-        component={Training}
+        component={UsersList}
         options={{
           headerShown: false,
         }}

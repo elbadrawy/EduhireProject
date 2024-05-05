@@ -4,6 +4,7 @@ import {
   ActivityIndicator,
   Alert,
   FlatList,
+  StyleSheet,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -13,53 +14,33 @@ import Container from '../Container';
 import {Text, Divider} from '@rneui/themed';
 import reactotron from 'reactotron-react-native';
 import {Icon} from 'react-native-paper';
+import {Chip} from '@rneui/themed';
 
 export default function UsersList({route, navigation}) {
   const {userDetails} = route.params;
   const [loading, setLoading] = useState(true);
-  const [jobs, setJobs] = useState([]);
-
-  const getCompanyInfo = async companyID => {
-    const document = await companyID.get();
-    return document.data();
-  };
+  const [users, setUsers] = useState([]);
+  const [activeTab, setActiveTab] = useState('1');
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
-      fetchJobs();
+      fetchUsers();
     });
     return unsubscribe;
   }, [navigation]);
 
-  const fetchJobs = async () => {
+  const fetchUsers = async (tab = null) => {
     try {
-      let querySnapshot;
-      if (userDetails.type === '2') {
-        const userRef = await firestore()
-          .collection('Users')
-          .doc(userDetails.uid);
-        querySnapshot = await firestore()
-          .collection('Jobs')
-          .where('companyID', '==', userRef)
-          .get();
-      } else {
-        querySnapshot = await firestore().collection('Jobs').get();
-      }
-
-      const jobsPromises = querySnapshot.docs.map(async documentSnapshot => {
-        let companyData = await getCompanyInfo(
-          documentSnapshot.data().companyID,
-        );
-        return {
-          ...documentSnapshot.data(),
-          key: documentSnapshot.id,
-          company: {...companyData},
-        };
-      });
-      const jobsData = await Promise.all(jobsPromises);
-      setJobs(jobsData);
+      tab && setActiveTab(tab);
+      setUsers([]);
+      const querySnapshot = await firestore()
+        .collection('Users')
+        .where('type', '==', tab || activeTab)
+        .get();
+      const UsersData = querySnapshot.docs.map(doc => doc.data());
+      setUsers(UsersData);
     } catch (error) {
-      console.error('Error fetching jobs:', error);
+      console.error('Error fetching Users:', error);
     } finally {
       setLoading(false);
     }
@@ -69,70 +50,134 @@ export default function UsersList({route, navigation}) {
     return <ActivityIndicator style={{flex: 1, alignSelf: 'center'}} />;
   }
 
-  const renderJobItem = ({item}) => {
-    if (userDetails.type === '2') {
+  const renderUserItem = ({item}) => {
+    if (activeTab === '1') {
       return (
-        <TouchableOpacity
-          onPress={() =>
-            navigation.push('jobCanadents', {
-              job: item,
-            })
-          }
-          style={{
-            padding: 15,
-            backgroundColor: '#fff',
-            margin: 10,
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-          }}>
+        <View style={styles.itemContainer}>
           <View style={{maxWidth: 300}}>
-            <Text h4>{item.title}</Text>
-            <Text>{item.description}</Text>
-            <Text>{item?.company?.companyInfo?.name}</Text>
+            <Text h4>
+              {item?.firstname} {item?.lastname}
+            </Text>
+            <Text>
+              {item?.educationInfo?.education}, {item?.educationInfo?.major},{' '}
+              {item?.educationInfo?.gradDate}
+            </Text>
+            <Text>
+              {item?.location?.country}, {item?.location?.city}
+            </Text>
+            <Text>{item?.email}</Text>
           </View>
-          <TouchableOpacity onPress={() => deleteJob(item?.key)}>
-            <Icon source={'delete'} size={24} color="red" />
+          <TouchableOpacity onPress={() => blockUser(item?.uid, item.blocked)}>
+            <Icon
+              source={item.blocked === '1' ? 'account-lock-open' : 'cancel'}
+              size={24}
+              color="red"
+            />
           </TouchableOpacity>
-        </TouchableOpacity>
-      );
-    } else if (userDetails.type === '1') {
-      return (
-        <TouchableOpacity
-          onPress={() =>
-            navigation.push('jobApply', {
-              job: item,
-            })
-          }
-          style={{padding: 15, backgroundColor: '#fff', margin: 10}}>
-          <Text h4>{item.title}</Text>
-          <Text>{item.description}</Text>
-          <Text>{item?.company?.companyInfo?.name}</Text>
-        </TouchableOpacity>
-      );
-    } else {
-      return (
-        <View style={{padding: 15, backgroundColor: '#fff', margin: 10}}>
-          <Text h4>{item.title}</Text>
-          <Text>{item.description}</Text>
-          <Text>{item?.company?.companyInfo?.name}</Text>
         </View>
       );
+    } else if (activeTab === '2') {
+      return (
+        <View style={styles.itemContainer}>
+          <View style={{maxWidth: 300}}>
+            <Text h4>{item?.companyInfo?.name}</Text>
+            <Text>{item?.companyInfo?.companyWebSite}</Text>
+            <Text>
+              {item?.location?.country}, {item?.location?.city}
+            </Text>
+            <Text>{item?.email}</Text>
+          </View>
+          <TouchableOpacity onPress={() => blockUser(item?.uid, item.blocked)}>
+            <Icon
+              source={item.blocked === '1' ? 'account-lock-open' : 'cancel'}
+              size={24}
+              color="red"
+            />
+          </TouchableOpacity>
+        </View>
+      );
+    } else if (activeTab === '3') {
+      return (
+        <View style={styles.itemContainer}>
+          <View style={{maxWidth: 300}}>
+            <Text h4>{item?.mentorDetails?.name}</Text>
+            <Text>{item?.mentorDetails?.jobTitle}</Text>
+            <Text>{item?.mentorDetails?.bio}</Text>
+            <Text>{item?.email}</Text>
+          </View>
+          <View>
+            <TouchableOpacity
+              onPress={() => blockUser(item?.uid, item.blocked)}>
+              <Icon
+                source={item.blocked === '1' ? 'account-lock-open' : 'cancel'}
+                size={24}
+                color="red"
+              />
+            </TouchableOpacity>
+            {item?.mentorStatus !== '1' && (
+              <TouchableOpacity
+                style={{marginTop: 20}}
+                onPress={() => approveMentor(item?.uid)}>
+                <Icon source={'check'} size={24} color="red" />
+              </TouchableOpacity>
+            )}
+          </View>
+        </View>
+      );
+    } else {
+      return null;
     }
   };
 
-  const deleteJob = async jobID => {
-    Alert.alert('alert', 'Are you sure you want to delete this job ?', [
+  const blockUser = async (userID, blockedStatus) => {
+    Alert.alert(
+      'alert',
+      !blockedStatus
+        ? 'Are you sure you want to block this user ?'
+        : 'Are you sure you want to unblock this user ?',
+      [
+        {
+          text: 'Sure',
+          onPress: async () => {
+            await firestore()
+              .collection('Users')
+              .doc(userID)
+              .set(
+                {
+                  blocked: blockedStatus === '1' ? '0' : '1',
+                },
+                {merge: true},
+              )
+              .then(() => {
+                fetchUsers();
+              })
+              .catch(e => {
+                reactotron.log('error', e);
+              });
+          },
+          style: 'cancel',
+        },
+        {text: 'Cancel', onPress: () => null},
+      ],
+    );
+  };
+
+  const approveMentor = async userID => {
+    Alert.alert('alert', 'Are you sure you want to approve this mentor ?', [
       {
         text: 'Sure',
         onPress: async () => {
-          reactotron.log(jobID);
           await firestore()
-            .collection('Jobs')
-            .doc(jobID)
-            .delete()
+            .collection('Users')
+            .doc(userID)
+            .set(
+              {
+                mentorStatus: '1',
+              },
+              {merge: true},
+            )
             .then(() => {
-              fetchJobs();
+              fetchUsers();
             })
             .catch(e => {
               reactotron.log('error', e);
@@ -144,49 +189,70 @@ export default function UsersList({route, navigation}) {
     ]);
   };
 
+  const handleTabPress = tab => {
+    if (activeTab === tab) {
+      return null;
+    } else {
+      fetchUsers(tab);
+    }
+  };
+
+  const renderTopTaps = () => {
+    return (
+      <View style={styles.container}>
+        <Chip
+          title="Students"
+          type={activeTab === '1' ? 'solid' : 'outline'}
+          onPress={() => handleTabPress('1')}
+        />
+        <Chip
+          title="Mentors"
+          type={activeTab === '3' ? 'solid' : 'outline'}
+          onPress={() => handleTabPress('3')}
+        />
+        <Chip
+          title="Companies"
+          type={activeTab === '2' ? 'solid' : 'outline'}
+          onPress={() => handleTabPress('2')}
+        />
+      </View>
+    );
+  };
+
   return (
     <Container>
       <FlatList
-        data={jobs}
+        data={users}
         style={{flex: 1, padding: 15}}
         contentContainerStyle={{paddingBottom: 50}}
-        // eslint-disable-next-line react/no-unstable-nested-components
-        ListHeaderComponent={() => (
-          <View
-            style={{
-              justifyContent: 'space-between',
-              flexDirection: 'row',
-              alignItems: 'flex-end',
-            }}>
-            <Text h3>{userDetails.type === '2' ? 'My Jobs' : 'Jobs'}</Text>
-            {userDetails.type === '2' ? (
-              <View style={{flexDirection: 'row'}}>
-                <TouchableOpacity
-                  onPress={() => navigation.push('applyNewJob')}>
-                  <Icon source={'plus'} size={25} />
-                </TouchableOpacity>
-              </View>
-            ) : (
-              userDetails.type === '1' && (
-                <TouchableOpacity
-                  onPress={() => navigation.push('jobHistory')}
-                  style={{flexDirection: 'row'}}>
-                  <Icon source={'history'} size={25} />
-                </TouchableOpacity>
-              )
-            )}
-          </View>
-        )}
+        ListHeaderComponent={() => renderTopTaps()}
         // eslint-disable-next-line react/no-unstable-nested-components
         ListEmptyComponent={() => (
           <View
             style={{flex: 1, alignSelf: 'center', justifyContent: 'center'}}>
-            <Text>No Jobs Available Yet</Text>
+            <Text>No Users Available Yet</Text>
           </View>
         )}
-        renderItem={renderJobItem}
+        renderItem={renderUserItem}
         ItemSeparatorComponent={() => <Divider />}
       />
     </Container>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: 10,
+    marginBottom: 10,
+  },
+  itemContainer: {
+    padding: 15,
+    backgroundColor: '#fff',
+    margin: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+});

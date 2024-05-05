@@ -33,7 +33,6 @@ export default function Tasks({route, navigation}) {
   }, [navigation]);
 
   const fetchTasks = async () => {
-    reactotron.log('1');
     try {
       //Query here to get only tasks assigned to you or created by you if user type is mentor
       //need auth user passed here
@@ -57,9 +56,7 @@ export default function Tasks({route, navigation}) {
           mentor: {...mentorData},
         };
       });
-      reactotron.log('2');
       const tasksData = await Promise.all(tasksPromises);
-      reactotron.log('3', tasksData);
       setTasks(tasksData);
     } catch (error) {
       console.error('Error fetching Tasks:', error);
@@ -77,7 +74,6 @@ export default function Tasks({route, navigation}) {
       {
         text: 'Sure',
         onPress: async () => {
-          reactotron.log(taskID);
           await firestore()
             .collection('Tasks')
             .doc(taskID)

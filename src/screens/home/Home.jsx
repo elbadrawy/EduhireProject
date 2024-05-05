@@ -192,7 +192,6 @@ export default function HomeScreen({route}) {
         keyExtractor={item => item.key}
         renderItem={({item}) => {
           let username;
-          reactotron.log(item.user);
           if (item.user.type === '1') {
             username = `${item.user.firstname} ${item.user.lastname}`;
           } else if (item.user.type === '2') {

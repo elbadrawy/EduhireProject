@@ -12,6 +12,7 @@ import firestore from '@react-native-firebase/firestore';
 import {Input, Button} from '@rneui/themed';
 import {Dropdown} from 'react-native-element-dropdown';
 import styles from './Rejester.style';
+import reactotron from 'reactotron-react-native';
 
 const data = [
   {label: 'Student', value: '1'},
@@ -102,14 +103,14 @@ export default function Rejester({navigation}) {
       })
       .catch(error => {
         if (error.code === 'auth/email-already-in-use') {
-          Alert.alert('Email is rejester before please login!');
+          Alert.alert('Alert', 'Email is rejester before please login!');
         }
 
         if (error.code === 'auth/invalid-email') {
-          Alert.alert('That email address is invalid!');
+          Alert.alert('Alert', 'That email address is invalid!');
         }
 
-        Alert.alert(error);
+        Alert.alert('Alert', error);
       });
   };
   return (
