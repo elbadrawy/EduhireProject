@@ -95,7 +95,7 @@ export default function Training({route, navigation}) {
           </TouchableOpacity>
         </TouchableOpacity>
       );
-    } else {
+    } else if (userDetails.type === '1') {
       return (
         <TouchableOpacity
           onPress={() =>
@@ -108,6 +108,14 @@ export default function Training({route, navigation}) {
           <Text>{item.description}</Text>
           <Text>{item?.company?.companyInfo?.name}</Text>
         </TouchableOpacity>
+      );
+    } else {
+      return (
+        <View style={{padding: 15, backgroundColor: '#fff', margin: 10}}>
+          <Text h4>{item.title}</Text>
+          <Text>{item.description}</Text>
+          <Text>{item?.company?.companyInfo?.name}</Text>
+        </View>
       );
     }
   };

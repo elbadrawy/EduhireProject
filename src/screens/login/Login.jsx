@@ -49,7 +49,7 @@ export default function LoginScreen({navigation}) {
         <Input
           placeholder="Password"
           value={password}
-          //secureTextEntry={true}
+          secureTextEntry={true}
           onChangeText={v => setPassword(v)}
         />
         <Button title="login" onPress={() => login()} />

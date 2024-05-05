@@ -140,7 +140,7 @@ export default function Rejester({navigation}) {
         <Input
           placeholder="Password"
           value={password}
-          //secureTextEntry={true}
+          secureTextEntry={true}
           onChangeText={v => setPassword(v)}
         />
         {type === '1' ? (

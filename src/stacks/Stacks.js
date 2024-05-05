@@ -20,6 +20,7 @@ import TaskApply from '../screens/tasks/TaskApply';
 import JobHistory from '../screens/jobs/JobsHistory';
 import TrainingHistory from '../screens/training/TrainingHistory';
 import TaskHistory from '../screens/tasks/TaskHistory';
+import TaskCanadents from '../screens/tasks/TaskCanadents';
 
 
 export const MainStack = createNativeStackNavigator();
@@ -180,6 +181,12 @@ export function TaskStackComponent({route}) {
         initialParams={params}
         component={TaskHistory}
         options={{headerTitle: 'Task History'}}
+      />
+      <TrainingStack.Screen
+        name={'taskCanadents'}
+        initialParams={params}
+        component={TaskCanadents}
+        options={{headerTitle: 'Task Canadents'}}
       />
     </TasksStack.Navigator>
   );
