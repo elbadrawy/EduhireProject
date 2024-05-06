@@ -98,19 +98,25 @@ export default function Jobs({route, navigation}) {
             navigation.push('jobApply', {
               job: item,
             })
+            
           }
-          style={{padding: 15, backgroundColor: '#fff', margin: 10}}>
+          style={styles.studentJobView}>
           <Text h4>{item.title}</Text>
-          <Text>{item.description}</Text>
-          <Text>{item?.company?.companyInfo?.name}</Text>
+          <Divider/>
+          <View style={styles.jobPostBody}>
+            <Text>{item.description}</Text>
+            <Text style={styles.companyName}>{item?.company?.companyInfo?.name}</Text>
+          </View>
         </TouchableOpacity>
       );
     } else {
       return (
-        <View style={{padding: 15, backgroundColor: '#fff', margin: 10}}>
+        <View style={styles.studentJobView}>
           <Text h4>{item.title}</Text>
-          <Text>{item.description}</Text>
-          <Text>{item?.company?.companyInfo?.name}</Text>
+          <View style={styles.jobPostBody}>
+            <Text>{item.description}</Text>
+            <Text style={styles.companyName}>{item?.company?.companyInfo?.name}</Text>
+          </View>
         </View>
       );
     }
@@ -140,37 +146,48 @@ export default function Jobs({route, navigation}) {
   };
 
   return (
-    <Container>
+    <Container style={{flex:1, marginTop:20,}} >
       <FlatList
         data={jobs}
-        style={{flex: 1, padding: 15}}
-        contentContainerStyle={{paddingBottom: 50}}
+        style={{flex: 1,padding: 15, }} //Entir Job screen style (BG)
+        contentContainerStyle={{gap:10, paddingBottom:20, }}
+        
+
+
+
         // eslint-disable-next-line react/no-unstable-nested-components
         ListHeaderComponent={() => (
-          <View
-            style={{
-              justifyContent: 'space-between',
-              flexDirection: 'row',
-              alignItems: 'flex-end',
-            }}>
-            <Text h3>{userDetails.type === '2' ? 'My Jobs' : 'Jobs'}</Text>
-            {userDetails.type === '2' ? (
-              <View style={{flexDirection: 'row'}}>
-                <TouchableOpacity
-                  onPress={() => navigation.push('applyNewJob')}>
-                  <Icon source={'plus'} size={25} />
-                </TouchableOpacity>
-              </View>
-            ) : (
-              userDetails.type === '1' && (
-                <TouchableOpacity
-                  onPress={() => navigation.push('jobHistory')}
-                  style={{flexDirection: 'row'}}>
-                  <Icon source={'history'} size={25} />
-                </TouchableOpacity>
-              )
-            )}
-          </View>
+         <>
+            <View
+              style={{
+                justifyContent: 'space-between',
+                flexDirection: 'row',
+                alignItems: 'flex-end',
+                width:'100%',
+                paddingBottom:15,
+                
+              }}>
+              <Text h3>{userDetails.type === '2' ? 'My Jobs' : 'Jobs'}</Text>
+              
+              {userDetails.type === '2' ? (
+                <View style={{flexDirection: 'row'}}>
+                  <TouchableOpacity
+                    onPress={() => navigation.push('applyNewJob')}>
+                    <Icon source={'plus'} size={25} />
+                  </TouchableOpacity>
+                </View>
+              ) : (
+                userDetails.type === '1' && (
+                  <TouchableOpacity
+                    onPress={() => navigation.push('jobHistory')}
+                    style={{flexDirection: 'row'}}>
+                    <Icon source={'history'} size={25} />
+                  </TouchableOpacity>
+                )
+              )}
+            </View>
+            <Divider/>
+          </>
         )}
         // eslint-disable-next-line react/no-unstable-nested-components
         ListEmptyComponent={() => (
@@ -180,7 +197,7 @@ export default function Jobs({route, navigation}) {
           </View>
         )}
         renderItem={renderJobItem}
-        ItemSeparatorComponent={() => <Divider />}
+        // ItemSeparatorComponent={() => <Divider />}
       />
     </Container>
   );
@@ -194,14 +211,13 @@ const styles = StyleSheet.create({
     margin: 10,
     flexDirection: 'row',
     alignItems: 'center',
-    
     justifyContent: 'center',
     borderRadius:20,
     minHeight:150,
-
-    shadowColor:"#333333",
-
+    // backgroundColor:'black',
     
+    
+    shadowColor:"#333333", 
     shadowOfset:{
     width:10,
     height:10,
@@ -218,18 +234,59 @@ const styles = StyleSheet.create({
     bottom:50,
     left:30,
   },
-  jobHolder:{
+  jobHolder:{ // Company
     textAlign:'center',
     alignItems:'center',
     flexDirection:'column',
     gap:15,
   },
   companyName:{
-    borderWidth:1,
+    // borderWidth:1,
     padding:8,
     borderTopRightRadius:20,
     borderBottomLeftRadius:20,
-    borderColor:"#8C14FC",
+    // borderColor:"#8C14FC",
     fontWeight:'bold',
+    width:100,
+    textAlign:'center',
+    maxWidth:250,
+    color:'#fff',
+    backgroundColor:'#6750A4'
+  },
+  jobTitle_Card:{
+    fontSize:14,
+    borderWidth:2,
+  },
+  studentJobView:{
+    padding: 15,
+    paddingBottom:0,
+    // paddingLeft:15,
+    // paddingRight:15,
+    backgroundColor: '#fff',
+    margin: 10,
+    borderWidth:0.5,
+    borderRadius:20,
+    borderColor:'rgba(0,0,0,0.2)',
+    maxHeight:250,
+    // justifyContent:'space-between'
+    shadowColor:"#333333", 
+    shadowOfset:{
+    width:10,
+    height:10,
+    
+    
+    
+    },
+    shadowOpacity:0.9,
+    shadowRadius:4,
+    elevation:15,
+  },
+  jobPostBody:{
+    height:'80%',
+    // borderWidth:2,
+    justifyContent:'space-between',
+    padding:5,
+
+
   }
 })

@@ -11,6 +11,7 @@ export default StyleSheet.create({
     height: 50,
     borderBottomColor: 'gray',
     borderBottomWidth: 0.5,
+    width:'100%'
   },
   icon: {
     marginRight: 5,

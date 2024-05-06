@@ -182,8 +182,8 @@ export default function HomeScreen({route}) {
       <View style={styles.header}>
         <WelcomeMessage username={username} />
         <Button type='solid' onPress={signOut}
-          buttonStyle={{borderRadius:70, padding:2, backgroundColor:'transparent'}}
-          icon={<Icon name='logout' color={'#9e1313'}/>}
+          buttonStyle={{borderRadius:70, padding:2, backgroundColor:'transparent', }}
+          icon={<Icon name='logout'  color={'#fff'}/>}
           
         />
       </View>

@@ -4,6 +4,7 @@ import {
   ActivityIndicator,
   Alert,
   FlatList,
+  StyleSheet,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -14,6 +15,7 @@ import {Text, Divider} from '@rneui/themed';
 import reactotron from 'reactotron-react-native';
 import {Icon} from 'react-native-paper';
 import TaskStatusBox from './TaskStatusComponent';
+import { CardDivider } from '@rneui/base/dist/Card/Card.Divider';
 
 export default function Tasks({route, navigation}) {
   const {userDetails} = route.params;
@@ -150,23 +152,22 @@ export default function Tasks({route, navigation}) {
                     task: item,
                   })
                 }
-                style={{
-                  padding: 15,
-                  backgroundColor: '#fff',
-                  margin: 10,
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                }}>
-                <View style={{maxWidth: 300}}>
-                  <Text h4>{item.title}</Text>
+                style={styles.taskHolder}>
+                <View>
+                  <View style={styles.taskHeader}>
+                    <Text h4>{item.title}</Text>
+                    <TaskStatusBox difficultyLevel={item.difficiultyLevel} />
+                    
+                  </View>
+                  <CardDivider/>
                   <Text>{item.description}</Text>
-                  <Text>{item?.mentor?.mentorDetails?.name}</Text>
+                  <Text style={styles.mentorName}>
+                    {item?.mentor?.mentorDetails?.name}
+                  </Text>
                 </View>
                 <View>
-                  <TaskStatusBox difficultyLevel={item.difficiultyLevel} />
                   <TouchableOpacity
-                    style={{alignSelf: 'flex-end'}}
+                    style={styles.deleteIcon}
                     onPress={() => deleteTask(item?.key)}>
                     <Icon source={'delete'} size={24} color="red" />
                   </TouchableOpacity>
@@ -181,18 +182,22 @@ export default function Tasks({route, navigation}) {
                     task: item,
                   })
                 }
-                style={{padding: 15, backgroundColor: '#fff', margin: 10}}>
+                style={styles.taskHolderStudent}>
                 <Text h4>{item.title}</Text>
                 <Text>{item.description}</Text>
-                <Text>{item?.mentor?.mentorDetails?.name}</Text>
+                <Text style={styles.mentorName}>
+                  {item?.mentor?.mentorDetails?.name}
+                </Text>
               </TouchableOpacity>
             );
           } else {
             return (
-              <View style={{padding: 15, backgroundColor: '#fff', margin: 10}}>
+              <View style={styles.taskHolder}>
                 <Text h4>{item.title}</Text>
                 <Text>{item.description}</Text>
-                <Text>{item?.mentor?.mentorDetails?.name}</Text>
+                <Text style={styles.mentorName}>
+                  {item?.mentor?.mentorDetails?.name}
+                </Text>
               </View>
             );
           }
@@ -202,3 +207,75 @@ export default function Tasks({route, navigation}) {
     </Container>
   );
 }
+
+const styles = StyleSheet.create({
+  taskHolder: {
+    borderWidth: 2,
+    borderColor:'rgba(0,0,0,0.2)',
+    padding: 15,
+    backgroundColor: '#fff',
+    margin: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    borderRadius: 30,
+    shadowColor:"#333333", 
+    shadowOfset:{
+    width:10,
+    height:10,
+    
+    
+    },
+    shadowOpacity:0.9,
+    shadowRadius:4,
+    elevation:10,
+
+  },
+
+  taskHolderStudent:{
+    borderWidth: 2,
+    borderColor:'rgba(0,0,0,0.2)',
+    padding: 15,
+    backgroundColor: '#fff',
+    margin: 10,
+    borderRadius: 30,
+    shadowColor:"#333333", 
+    shadowOfset:{
+    width:10,
+    height:10,
+    
+    
+    },
+    shadowOpacity:0.9,
+    shadowRadius:4,
+    elevation:10,
+
+  },
+
+  taskHeader: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    width: '100%',
+    
+  },
+  mentorName: {
+    // borderWidth:2,
+    width:100,
+    minWidth: 100,
+    maxWidth: 200,
+    textAlign: 'center',
+    marginTop: 20,
+    padding: 8,
+    borderTopLeftRadius: 60,
+    borderTopRightRadius: 20,
+    borderBottomLeftRadius: 30,
+    borderBottomRightRadius: 60,
+    backgroundColor: '#6750A4',
+    color: 'white',
+  },
+  deleteIcon:{
+    position:'relative',
+    right:20,
+  }
+});

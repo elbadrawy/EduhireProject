@@ -1,10 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import {View, ScrollView, Alert} from 'react-native';
+import {View, ScrollView, StyleSheet,TextInput, AccessibilityInfo,Alert} from 'react-native';
 import firestore from '@react-native-firebase/firestore';
-import {Input, Button} from '@rneui/themed';
+import {Input, Button, Icon} from '@rneui/themed';
 import styles from './Jobs.style';
 import Toast from 'react-native-toast-message';
-import {Text} from '@rneui/themed';
+import {Text, } from '@rneui/themed';
+import { Textarea} from 'native-base';
+
 
 export default function JobApply({route, navigation: {goBack}}) {
   const [coverLetter, setCoverLatter] = useState();
@@ -22,14 +24,16 @@ export default function JobApply({route, navigation: {goBack}}) {
       jobID: jobRef,
       studentID: userRef,
     };
-    firestore()
-      .collection('JobApply')
-      .doc()
-      .set(JobData)
-      .then(() => {
-        showToast();
-        goBack();
-      });
+    
+      firestore()
+        .collection('JobApply')
+        .doc()
+        .set(JobData)
+        .then(() => {
+          showToast();
+          goBack();
+        });
+  
   };
 
   const showToast = () => {
@@ -43,25 +47,61 @@ export default function JobApply({route, navigation: {goBack}}) {
 
   return (
     <ScrollView style={{flex: 1}} contentContainerStyle={[styles.containerStyle, {padding: 15}]}>
-      <View style={{flex: 1, width: '100%'}}>
+      <View style={{flex: 1, width: '100%', alignItems:'center', justifyContent:'space-around'}}>
         <Text h3 style={{marginBottom: 30}}>
           {params?.job.title}
         </Text>
-        <Input
+      
+        {/* style={applyStyles.coverLetter} */}
+        <Textarea
+         h={20}
+         placeholder="Cover Letter"
+         w="75%" maxW="300" 
+         style={applyStyles.coverLetter}
+         value={coverLetter}
+         onChangeText={v => setCoverLatter(v)}
+        >
+
+        </Textarea>
+
+        {/* <Input
           placeholder="Cover Latter"
-          style={{height: 100}}
+          // style={applyStyles.coverLetter}
           multiline
           value={coverLetter}
           onChangeText={v => setCoverLatter(v)}
-        />
+        /> */}
+
         <Input
           placeholder="Resume Link"
           value={resumeLink}
           onChangeText={v => setResumeLink(v)}
+          leftIcon={<Icon name="link" size={20}/>}
+          
         />
+        <Button title="Submit" onPress={() => _submitJob()} buttonStyle={{borderRadius:20, width:100, backgroundColor:'#6750A4' }}/>
+        
       </View>
 
-      <Button title="Submit" onPress={() => _submitJob()} />
+      
     </ScrollView>
   );
 }
+const applyStyles = StyleSheet.create({
+  coverLetter:{
+    height:200,
+    backgroundColor:'#fff',
+    borderWidth:0.5,
+    borderRadius:10,
+    borderColor:'#525252',
+    width:'100%',
+    shadowColor:"#333333", 
+    shadowOfset:{
+    width:10,
+    height:10,
+    },
+    shadowOpacity:0.9,
+    shadowRadius:4,
+    elevation:15,
+  }
+})

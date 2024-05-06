@@ -35,6 +35,7 @@ export default StyleSheet.create({
     color:'whitesmoke',
     marginBottom:70,
     marginTop:70,
+    fontWeight:800,
   },
   bottomScreen:{
     backgroundColor:'white',

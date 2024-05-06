@@ -1,10 +1,11 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState, useEffect} from 'react';
-import {ActivityIndicator, FlatList, View} from 'react-native';
+import {ActivityIndicator, FlatList, StyleSheet, View} from 'react-native';
 import firestore from '@react-native-firebase/firestore';
-import {Text, Divider} from '@rneui/themed';
+import {Text, Divider,Icon} from '@rneui/themed';
 import Toast from 'react-native-toast-message';
 import Clipboard from '@react-native-clipboard/clipboard';
+import { CardDivider } from '@rneui/base/dist/Card/Card.Divider';
 
 export default function TaskCanadents({route, navigation}) {
   const {userDetails, task} = route.params;
@@ -70,23 +71,18 @@ export default function TaskCanadents({route, navigation}) {
   const renderStudentItem = ({item}) => {
     const {student} = item;
     return (
-      <View style={{padding: 15, backgroundColor: '#fff', margin: 10}}>
+      <View style={candidatStyles.holder}>
         <Text h4>
-          <Text h4 style={{fontWeight: '600', fontSize: 18}}>
-            Name:
-          </Text>{' '}
-          {student.firstname} {student.lastname}
+          {student.firstname} {student.lastname}         
         </Text>
         <Text>
-          <Text style={{fontWeight: '600', fontSize: 18}}>Description:</Text>{' '}
+          <Text style={{fontWeight: '600', fontSize: 16}}>Description:</Text>{' '}
           {item.description}
         </Text>
         <Text>
-          <Text h6 style={{fontWeight: '600', fontSize: 18}}>
-            Attachment:
-          </Text>{' '}
+          
           <Text style={{color: 'blue'}} onPress={() => showToast(item.resume)}>
-            {item.attachment}
+            <Icon name="link" size={20} color={"#00000068"}/> {item.attachment}
           </Text>
         </Text>
       </View>
@@ -106,7 +102,7 @@ export default function TaskCanadents({route, navigation}) {
             flexDirection: 'row',
             alignItems: 'flex-end',
           }}>
-          <Text h3>{task.title}</Text>
+          <Text h3 h3Style={{width:'100%', textAlign:'center'}}>{task.title}</Text>
         </View>
       )}
       // eslint-disable-next-line react/no-unstable-nested-components
@@ -120,3 +116,22 @@ export default function TaskCanadents({route, navigation}) {
     />
   );
 }
+
+const candidatStyles = StyleSheet.create({
+  holder: {
+    padding: 15,
+    backgroundColor: '#fff',
+    margin: 10,
+    alignItems:'center',
+    borderRadius:30,
+    gap:10,
+    shadowColor:"#333333", 
+    shadowOfset:{
+    width:10,
+    height:10,
+    },
+    shadowOpacity:0.9,
+    shadowRadius:4,
+    elevation:10,
+  },
+});
