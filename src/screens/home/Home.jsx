@@ -286,7 +286,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 20,
     padding:10,
-    backgroundColor:'#6750A4',
+    backgroundColor:'#305538',
     // borderWidth:2,
     borderBottomWidth:1,
     borderBottomColor:"rgba(0,0,0,0.2)",
@@ -320,13 +320,14 @@ const styles = StyleSheet.create({
   },
   username: {
     fontWeight: 'bold',
-    color:'#6650a4d9',
+    color:'#30623a',
   },
   date: {
     color: '#777777a5',
   },
   content: {
     marginBottom: 10,
+    fontSize:14,
   },
   likeButton: {
     flexDirection: 'row',
@@ -374,7 +375,7 @@ const styles = StyleSheet.create({
     elevation:17,
   },
   postButton: {
-    backgroundColor: '#6750A4',
+    backgroundColor: '#305538',
     borderRadius: 5,
     paddingVertical: 10,
     paddingHorizontal: 15,

@@ -2,11 +2,11 @@ import React, {useState, useEffect} from 'react';
 import {View, Text, ScrollView, StyleSheet, Alert} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
-import {Input, Button} from '@rneui/themed';
+import {Button} from '@rneui/themed';
 import {Dropdown} from 'react-native-element-dropdown';
 import styles from './Rejester.style';
 import reactotron from 'reactotron-react-native';
-import {TextInput} from 'react-native-paper';
+import {Input} from 'native-base';
 
 const data = [
   {label: 'Student', value: '1'},
@@ -130,13 +130,13 @@ export default function Rejester({navigation}) {
         />
         
 
-        <TextInput
+        <Input
           placeholder="Email"
           value={email}
           onChangeText={v => setEmail(v)}
           style={styles.Input}
         />
-        <TextInput
+        <Input
           placeholder="Password"
           value={password}
           secureTextEntry={true}
@@ -148,7 +148,7 @@ export default function Rejester({navigation}) {
 
         {type === '1' ? (
           <View>
-            <TextInput
+            <Input
               placeholder="Firstname"
               value={firstname}
               onChangeText={v => setFirstname(v)}
@@ -156,7 +156,7 @@ export default function Rejester({navigation}) {
             />
           
 
-            <TextInput
+            <Input
               placeholder="Lastname"
               value={lastname}
               onChangeText={v => setLastname(v)}
@@ -166,7 +166,7 @@ export default function Rejester({navigation}) {
           </View>
         ) : type === '2' ? (
           <View>
-            <TextInput
+            <Input
               placeholder="Company Name"
               value={companyName}
               onChangeText={v => setCompanyName(v)}
@@ -174,7 +174,7 @@ export default function Rejester({navigation}) {
             />
            
 
-            <TextInput
+            <Input
               placeholder="Contact Name"
               value={companyPersonName}
               onChangeText={v => setCompanyPersonName(v)}
@@ -183,7 +183,7 @@ export default function Rejester({navigation}) {
 
             
 
-            <TextInput              
+            <Input              
              placeholder="Company Website"
              value={companyWeb}
              onChangeText={v => setCompanyWeb(v)}
@@ -194,7 +194,7 @@ export default function Rejester({navigation}) {
         ) : (
           <View>
 
-            <TextInput              
+            <Input              
               placeholder="Name"
               value={mentorName}
               onChangeText={v => setMentorName(v)}
@@ -203,7 +203,7 @@ export default function Rejester({navigation}) {
 
            
 
-            <TextInput              
+            <Input              
               placeholder="Bio"
               value={mentorBio}
               onChangeText={v => setMentorBio(v)}
@@ -211,7 +211,7 @@ export default function Rejester({navigation}) {
             />
            
 
-            <TextInput              
+            <Input              
              placeholder="Job Title"
              value={mentorJobTitle}
              onChangeText={v => setMentorJobTitle(v)}
@@ -222,7 +222,7 @@ export default function Rejester({navigation}) {
         )}
         {type !== '3' && (
           <>
-            <TextInput              
+            <Input              
              placeholder="country"
              value={country}
              onChangeText={v => setCountry(v)}
@@ -231,7 +231,7 @@ export default function Rejester({navigation}) {
 
          
 
-            <TextInput              
+            <Input              
              placeholder="city"
              value={city}
              onChangeText={v => setCity(v)}
@@ -244,7 +244,7 @@ export default function Rejester({navigation}) {
         {type === '1' && (
           <View>
 
-            <TextInput              
+            <Input              
              placeholder="major"
              value={major}
              onChangeText={v => setMajor(v)}
@@ -253,7 +253,7 @@ export default function Rejester({navigation}) {
 
            
 
-            <TextInput              
+            <Input              
              placeholder="education"
              value={education}
              onChangeText={v => setEducation(v)}
@@ -261,7 +261,7 @@ export default function Rejester({navigation}) {
             />
 
 
-            <TextInput              
+            <Input              
              placeholder="gradDate"
              value={gradDate}
              onChangeText={v => setGradDate(v)}
@@ -269,7 +269,7 @@ export default function Rejester({navigation}) {
             />
             
 
-            <TextInput              
+            <Input              
              placeholder="skills"
              value={skills}
              onChangeText={v => setSkills(v)}
@@ -284,7 +284,7 @@ export default function Rejester({navigation}) {
           onPress={() => rejester()}
           buttonStyle={{
             borderRadius: 50,
-            backgroundColor: '#6750A4',
+            backgroundColor: '#305538',
             padding: 10,
             type: 'outline',
           }}

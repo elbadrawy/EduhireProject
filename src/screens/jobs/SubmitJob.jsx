@@ -37,7 +37,7 @@ export default function SubmitJob({route, navigation: {goBack}}) {
       .then(() => goBack());
   };
   return (
-    <ScrollView style={{flex: 1, backgroundColor:'#6750A4'}} contentContainerStyle={styles.containerStyle}>
+    <ScrollView style={{flex: 1, backgroundColor:'#305538'}} contentContainerStyle={styles.containerStyle}>
       <View style={submitJobStyles.holder}>
         <Input
           placeholder="Job Title"
@@ -81,7 +81,7 @@ export default function SubmitJob({route, navigation: {goBack}}) {
           buttonStyle={{
             borderRadius: 20,
             width: 100,
-            backgroundColor: '#6750A4',
+            backgroundColor: '#305538',
           }}
         />
       </View>

@@ -2,7 +2,7 @@
 import React, {useState, useEffect} from 'react';
 import {ActivityIndicator, FlatList, StyleSheet, View} from 'react-native';
 import firestore from '@react-native-firebase/firestore';
-import {Text, Divider} from '@rneui/themed';
+import {Text, Divider, Icon} from '@rneui/themed';
 import Toast from 'react-native-toast-message';
 import Clipboard from '@react-native-clipboard/clipboard';
 
@@ -72,21 +72,15 @@ export default function JobCanadents({route, navigation}) {
     return (
       <View style={styles.candidates}>
         <Text h4 style={styles.candidateName}>
-          <Text h4 style={{fontWeight: '600', fontSize: 18}}>
-            Name:
-          </Text>{' '}
-          {student.firstname} {student.lastname}
+          <Icon name="person" color={'black'} size={20} /> {student.firstname}{' '}
+          {student.lastname}
         </Text>
-        <Text>
-          <Text style={{fontWeight: '600', fontSize: 18}}></Text>
-          {item.coverLetter}
-        </Text>
+        <Text>{item.coverLetter}</Text>
         <Text style={styles.resumeLink}>
-          <Text h6 style={{fontWeight: '600', fontSize: 14}}>
-            Resume Link:
-          </Text>{' '}
-          <Text style={{color: 'blue'}} onPress={() => showToast(item.resume)}>
-            {item.resume}
+          <Text
+            style={{color: '#3c9af8'}}
+            onPress={() => showToast(item.resume)}>
+            <Icon name="link" color={'#0202026d'} size={15} /> {item.resume}
           </Text>
         </Text>
       </View>
@@ -94,82 +88,91 @@ export default function JobCanadents({route, navigation}) {
   };
 
   return (
-    < >
-      <Text h3 style={styles.jobTitle}>{job.title}</Text>
-      <FlatList
-        data={jobsApplyingData}
-        style={styles.applyingList}
-        contentContainerStyle={{flex: 1, paddingBottom: 50}}
-        // eslint-disable-next-line react/no-unstable-nested-components
-        ListHeaderComponent={() => (
-          <View
-            style={{
-              justifyContent: 'space-between',
-              flexDirection: 'row',
-              alignItems: 'flex-end',
-            }}>
-            
-          </View>
-        )}
-        // eslint-disable-next-line react/no-unstable-nested-components
-        ListEmptyComponent={() => (
-          <View style={{flex: 1, alignSelf: 'center', justifyContent: 'center'}}>
-            <Text>No applying Students for this job Yet</Text>
-          </View>
-        )}
-        renderItem={renderStudentItem}
-        ItemSeparatorComponent={() => <Divider />}
-      />
+    <>
+      
+      <View style={styles.holder}>
+      <Text h3 style={styles.jobTitle}>
+        {job.title}
+      </Text>
+        <FlatList
+          data={jobsApplyingData}
+          style={styles.applyingList}
+          contentContainerStyle={{flex: 1, paddingBottom: 50}}
+          // eslint-disable-next-line react/no-unstable-nested-components
+          ListHeaderComponent={() => (
+            <View
+              style={{
+                justifyContent: 'space-between',
+                flexDirection: 'row',
+                alignItems: 'flex-end',
+              }}></View>
+          )}
+          // eslint-disable-next-line react/no-unstable-nested-components
+          ListEmptyComponent={() => (
+            <View
+              style={{flex: 1, alignSelf: 'center', justifyContent: 'center'}}>
+              <Text>No applying Students for this job Yet</Text>
+            </View>
+          )}
+          renderItem={renderStudentItem}
+          ItemSeparatorComponent={() => <Divider />}
+        />
+      </View>
     </>
   );
 }
 const styles = StyleSheet.create({
-  jobTitle:{
+  holder: {
+    height: '100%',
+    backgroundColor: '#305538',
+  },
+  jobTitle: {
     // borderWidth:4,
-    textAlign:'center',
+    textAlign: 'center',
+    color:'white',
+    marginTop:10,
+    marginBottom:10,
   },
-  applyingList:{
-    flex: 1, padding: 15,
-    borderWidth:1,
-    backgroundColor:'white', 
-    borderColor:'rgba(0,0,0,0.07)',
-    marginTop:5,
-    borderTopRightRadius:50,
-    borderTopLeftRadius:50,
-    shadowColor:"#1f1e1e",
-    shadowOfset:{
-    width:10,
-    height:10,
-    
+  applyingList: {
+    flex: 1,
+    padding: 15,
+    borderWidth: 1,
+    backgroundColor: 'white',
+    borderColor: 'rgba(0,0,0,0.07)',
+    marginTop: 5,
+    borderTopRightRadius: 50,
+    borderTopLeftRadius: 50,
+    shadowColor: '#1f1e1e',
+    shadowOfset: {
+      width: 10,
+      height: 10,
     },
-    shadowOpacity:0.9,
-    shadowRadius:4,
-    elevation:15,
+    shadowOpacity: 0.9,
+    shadowRadius: 4,
+    elevation: 15,
   },
-  candidates:{
+  candidates: {
     padding: 15,
     backgroundColor: '#fff',
     margin: 10,
-    minHeight:150,
-    maxHeight:350,
-    borderRadius:20,
-    shadowColor:"#1f1e1e",
-    shadowOfset:{
-    width:10,
-    height:10,
-    
+    minHeight: 150,
+    maxHeight: 350,
+    borderRadius: 20,
+    shadowColor: '#1f1e1e',
+    shadowOfset: {
+      width: 10,
+      height: 10,
     },
-    shadowOpacity:0.9,
-    shadowRadius:4,
-    elevation:15,
+    shadowOpacity: 0.9,
+    shadowRadius: 4,
+    elevation: 15,
 
-    flexDirection:'column',
-    gap:10,
+    flexDirection: 'column',
+    gap: 10,
+    alignItems: 'center',
   },
-  candidateName:{
-    textAlign:'center',
+  candidateName: {
+    textAlign: 'center',
   },
-  resumeLink:{
-    
-  }
-})
+  resumeLink: {},
+});

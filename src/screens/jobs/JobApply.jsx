@@ -46,41 +46,42 @@ export default function JobApply({route, navigation: {goBack}}) {
   };
 
   return (
-    <ScrollView style={{flex: 1}} contentContainerStyle={[styles.containerStyle, {padding: 15}]}>
+    <ScrollView style={{flex: 1, }} contentContainerStyle={[styles.containerStyle]}>
       <View style={{flex: 1, width: '100%', alignItems:'center', justifyContent:'space-around'}}>
-        <Text h3 style={{marginBottom: 30}}>
+        <Text h3 style={{marginBottom: 30, color:"#fff"}}>
           {params?.job.title}
         </Text>
       
         {/* style={applyStyles.coverLetter} */}
-        <Textarea
-         h={20}
-         placeholder="Cover Letter"
-         w="75%" maxW="300" 
-         style={applyStyles.coverLetter}
-         value={coverLetter}
-         onChangeText={v => setCoverLatter(v)}
-        >
+        <View style={ styles.formHolder}>
+            <Textarea
+            h={20}
+            placeholder="Cover Letter"
+            w="75%" maxW="300" 
+            style={applyStyles.coverLetter}
+            value={coverLetter}
+            onChangeText={v => setCoverLatter(v)}
+            >
 
-        </Textarea>
+            </Textarea>
 
-        {/* <Input
-          placeholder="Cover Latter"
-          // style={applyStyles.coverLetter}
-          multiline
-          value={coverLetter}
-          onChangeText={v => setCoverLatter(v)}
-        /> */}
+            {/* <Input
+              placeholder="Cover Latter"
+              // style={applyStyles.coverLetter}
+              multiline
+              value={coverLetter}
+              onChangeText={v => setCoverLatter(v)}
+            /> */}
 
-        <Input
-          placeholder="Resume Link"
-          value={resumeLink}
-          onChangeText={v => setResumeLink(v)}
-          leftIcon={<Icon name="link" size={20}/>}
-          
-        />
-        <Button title="Submit" onPress={() => _submitJob()} buttonStyle={{borderRadius:20, width:100, backgroundColor:'#6750A4' }}/>
-        
+            <Input
+              placeholder="Resume Link"
+              value={resumeLink}
+              onChangeText={v => setResumeLink(v)}
+              leftIcon={<Icon name="link" size={20}/>}
+              
+            />
+            <Button title="Submit" onPress={() => _submitJob()} buttonStyle={{borderRadius:20, width:100, backgroundColor:'#305538' }}/>
+        </View>
       </View>
 
       
@@ -95,6 +96,7 @@ const applyStyles = StyleSheet.create({
     borderRadius:10,
     borderColor:'#525252',
     width:'100%',
+    
     shadowColor:"#333333", 
     shadowOfset:{
     width:10,

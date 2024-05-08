@@ -1,10 +1,12 @@
 import React, {useState, useEffect} from 'react';
 import {View, ScrollView, Alert} from 'react-native';
 import firestore from '@react-native-firebase/firestore';
-import {Input, Button} from '@rneui/themed';
+import {Input, Button, Icon} from '@rneui/themed';
 import styles from './Training.style';
 import Toast from 'react-native-toast-message';
 import {Text} from '@rneui/themed';
+import { Textarea} from 'native-base';
+
 
 export default function TrainingApply({route, navigation: {goBack}}) {
   const [coverLetter, setCoverLatter] = useState();
@@ -46,14 +48,17 @@ export default function TrainingApply({route, navigation: {goBack}}) {
   return (
     <ScrollView
       style={{flex: 1}}
-      contentContainerStyle={[styles.containerStyle, {padding: 15}]}>
-      <View style={{flex: 1, width: '100%'}}>
-        <Text h3 style={{marginBottom: 30}}>
+      contentContainerStyle={[styles.containerStyle,]}>
+     
+      <Text h3 style={{marginBottom: 30, width:'100%', textAlign:'center', color:'#fff'}}>
           {params?.training.title}
         </Text>
-        <Input
+      <View style={styles.formHolder}>
+
+        
+        <Textarea
           placeholder="Cover Latter"
-          style={{height: 100}}
+          style={styles.coverLetter}
           multiline
           value={coverLetter}
           onChangeText={v => setCoverLatter(v)}
@@ -62,10 +67,16 @@ export default function TrainingApply({route, navigation: {goBack}}) {
           placeholder="Resume Link"
           value={resumeLink}
           onChangeText={v => setResumeLink(v)}
+          leftIcon={<Icon name="link" size={20}/>}
         />
+
+        <Button title="Submit" 
+         onPress={() => _submitTraining()}
+         buttonStyle={{borderRadius:20, width:100, backgroundColor:'#305538' }}
+         />
       </View>
 
-      <Button title="Submit" onPress={() => _submitTraining()} />
+      
     </ScrollView>
   );
 }

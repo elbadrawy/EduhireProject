@@ -4,6 +4,7 @@ import {
   ActivityIndicator,
   Alert,
   FlatList,
+  StyleSheet,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -69,7 +70,7 @@ export default function Training({route, navigation}) {
   }
 
   const renderTrainingItem = ({item}) => {
-    if (userDetails.type === '2') {
+    if (userDetails.type === '2') { //Company View
       return (
         <TouchableOpacity
           onPress={() =>
@@ -77,25 +78,21 @@ export default function Training({route, navigation}) {
               training: item,
             })
           }
-          style={{
-            padding: 15,
-            backgroundColor: '#fff',
-            margin: 10,
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-          }}>
-          <View style={{maxWidth: 300}}>
-            <Text h4>{item.title}</Text>
-            <Text>{item.description}</Text>
-            <Text>{item?.company?.companyInfo?.name}</Text>
+          style={styles.companyTrainingHolder}>
+          <View style={{maxWidth: 300, }}>
+            <View style={{display:'flex', justifyContent:'space-between', flexDirection:'row', marginBottom:10,}}>
+                <Text h4>{item.title}</Text>
+                <TouchableOpacity onPress={() => deleteTraining(item?.key)} style={styles.deleteIcon}>
+                <Icon source={'delete'} size={24} color="red" />
+              </TouchableOpacity>
+            </View>
+            <Text style={{marginBottom:20}}>{item.description}</Text>
+            <Text style={styles.companyName}>{item?.company?.companyInfo?.name}</Text>
           </View>
-          <TouchableOpacity onPress={() => deleteTraining(item?.key)}>
-            <Icon source={'delete'} size={24} color="red" />
-          </TouchableOpacity>
+        
         </TouchableOpacity>
       );
-    } else if (userDetails.type === '1') {
+    } else if (userDetails.type === '1') { // Student View
       return (
         <TouchableOpacity
           onPress={() =>
@@ -103,18 +100,20 @@ export default function Training({route, navigation}) {
               training: item,
             })
           }
-          style={{padding: 15, backgroundColor: '#fff', margin: 10}}>
+          style={styles.trainingHolderStudent}>
           <Text h4>{item.title}</Text>
           <Text>{item.description}</Text>
-          <Text>{item?.company?.companyInfo?.name}</Text>
+          <Text style={styles.companyName}>{item?.company?.companyInfo?.name}</Text>
         </TouchableOpacity>
       );
-    } else {
+    } else { // Mentor View 
       return (
-        <View style={{padding: 15, backgroundColor: '#fff', margin: 10}}>
-          <Text h4>{item.title}</Text>
-          <Text>{item.description}</Text>
-          <Text>{item?.company?.companyInfo?.name}</Text>
+        <View style={styles.trainingHolderStudent}>
+          <Text h4 h4Style={{borderBottomWidth:1, paddingBottom:3, borderBottomColor:'rgba(0,0,0,0.2)', marginBottom:5,}}>{item.title}</Text>
+          <View style={styles.trainingBody}>
+            <Text>{item.description}</Text>
+            <Text style={styles.companyNameMentor}>{item?.company?.companyInfo?.name}</Text>
+          </View>
         </View>
       );
     }
@@ -189,3 +188,90 @@ export default function Training({route, navigation}) {
     </Container>
   );
 }
+const styles = StyleSheet.create({
+  trainingHolderStudent:{
+    borderWidth: 2,
+    borderColor:'rgba(0,0,0,0.2)',
+    // marginBottom:10,
+    padding: 15,
+    backgroundColor: '#fff',
+    margin: 10,
+    borderRadius: 30,
+    shadowColor:"#333333", 
+    shadowOfset:{
+    width:10,
+    height:10,
+    
+    
+    },
+    
+    shadowOpacity:0.9,
+    shadowRadius:4,
+    elevation:10,
+  },
+  companyTrainingHolder:{
+    borderWidth: 2,
+    borderColor:'rgba(0,0,0,0.2)',
+    padding: 15,
+    backgroundColor: '#fff',
+    margin: 10,
+    borderRadius: 30,
+    shadowColor:"#333333", 
+    shadowOfset:{
+    width:10,
+    height:10,
+    
+    
+    },
+    
+    shadowOpacity:0.9,
+    shadowRadius:4,
+    elevation:10,
+    height:150,
+    // justifyContent:'space-between'
+  
+  },
+  deleteIcon:{
+    position:'relative',
+    left:35,
+    top:6,
+  },
+  companyName:{
+    width:100,
+    minWidth: 100,
+    maxWidth: 200,
+    textAlign: 'center',
+    marginTop: 10,
+    padding: 8,
+    borderTopLeftRadius: 60,
+    borderTopRightRadius: 20,
+    borderBottomLeftRadius: 30,
+    borderBottomRightRadius: 60,
+    backgroundColor: '#305538',
+    color: 'white',
+  },
+
+  companyNameMentor:{
+    width:100,
+    minWidth: 100,
+    maxWidth: 200,
+    textAlign: 'center',
+    // marginTop: 20,
+    position:'relative',
+    top:15,
+    padding: 8,
+    borderTopLeftRadius: 60,
+    borderTopRightRadius: 20,
+    borderBottomLeftRadius: 30,
+    borderBottomRightRadius: 60,
+    backgroundColor: '#305538',
+    color: 'white'
+  },
+
+  trainingBody:{
+    // height:'80%',
+    // borderWidth:2,
+    justifyContent:'space-between',
+    padding:5,
+  }
+})

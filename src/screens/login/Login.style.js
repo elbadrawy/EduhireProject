@@ -69,10 +69,16 @@ export default StyleSheet.create({
     color:'grey',
   },
   email:{
-    borderRadius:20,
-    marginBottom:20,
-    borderTopLeftRadius:20,
-    borderTopRightRadius:20,
+    borderWidth: 0.5,
+    borderColor: 'rgba(0,0,0,0.4)',
+    padding: 5,
+    borderRadius: 20,
+    paddingLeft: 10,
+    fontSize: 16,
+    marginBottom: 10,
+    width: '100%',
+    maxHeight: 50,
+    backgroundColor:'rgba(0,0,0,0.08)'
   },
   password:{
     backgroundColor:'#bdbdbd',

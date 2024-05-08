@@ -1,8 +1,8 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState, useEffect} from 'react';
-import {ActivityIndicator, FlatList, View} from 'react-native';
+import {ActivityIndicator, FlatList, StyleSheet, View} from 'react-native';
 import firestore from '@react-native-firebase/firestore';
-import {Text, Divider} from '@rneui/themed';
+import {Text, Divider, Icon} from '@rneui/themed';
 import Toast from 'react-native-toast-message';
 import Clipboard from '@react-native-clipboard/clipboard';
 
@@ -79,31 +79,25 @@ export default function TrainingHistory({route, navigation}) {
   const renderStudentItem = ({item}) => {
     const {training, company} = item;
     return (
-      <View style={{padding: 15, backgroundColor: '#fff', margin: 10}}>
+      <View style={styles.trainingHistory}>
         <Text h4>
-          <Text h4 style={{fontWeight: '600', fontSize: 18}}>
-            Job Title:
-          </Text>{' '}
+
           {training.title}
         </Text>
         <Text>
-          <Text style={{fontWeight: '600', fontSize: 18}}>Company Email:</Text>{' '}
           <Text
-            style={{color: 'blue'}}
+            style={{color: '#3c9af8'}}
             onPress={() => showToast(company.email)}>
-            {company.email}
+            <Icon name="email" color={'#0202026d'} size={15} /> {company.email}
           </Text>
         </Text>
         <Text>
-          <Text style={{fontWeight: '600', fontSize: 18}}>CoverLatter:</Text>{' '}
           {item.coverLetter}
         </Text>
         <Text>
-          <Text h6 style={{fontWeight: '600', fontSize: 18}}>
-            Resume Link:
-          </Text>{' '}
-          <Text style={{color: 'blue'}} onPress={() => showToast(item.resume)}>
-            {item.resume}
+          
+          <Text style={{color: '#3c9af8'}} onPress={() => showToast(item.resume)}>
+          <Icon name="link" color={'#0202026d'} size={15} /> {item.resume}
           </Text>
         </Text>
       </View>
@@ -123,7 +117,7 @@ export default function TrainingHistory({route, navigation}) {
             flexDirection: 'row',
             alignItems: 'flex-end',
           }}>
-          <Text h3>Job applied history</Text>
+          <Text h3 h3Style={{width:'100%', textAlign:'center'}}>Training applied history</Text>
         </View>
       )}
       // eslint-disable-next-line react/no-unstable-nested-components
@@ -137,3 +131,24 @@ export default function TrainingHistory({route, navigation}) {
     />
   );
 }
+
+const styles =StyleSheet.create({
+  trainingHistory:{
+    padding: 15,
+    backgroundColor: '#fff',
+    margin: 10,
+    gap: 10,
+    alignItems: 'center',
+    borderRadius: 30,
+    borderWidth: 0.5,
+    borderColor: 'rgba(0,0,0,0.09)',
+    shadowColor: '#333333',
+    shadowOfset: {
+      width: 10,
+      height: 10,
+    },
+    shadowOpacity: 0.9,
+    shadowRadius: 4,
+    elevation: 10,
+  }
+})

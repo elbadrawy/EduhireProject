@@ -48,11 +48,11 @@ export function PreLoginComponent() {
 export function PostLoginComponent({route}) {
   const {params} = route;
   return (
-    <PostLoginStack.Navigator
+    <PostLoginStack.Navigator  //Navigator (  Bottom screen )
       initialRouteName={'HomeScreen'}
       activeColor="#fff"
       inactiveColor="black"
-      barStyle={{backgroundColor: '#694fad'}}
+      barStyle={{backgroundColor: '#305538', }}
       screenOptions={{headerShown: false, headerLeft: null}}>
       <PostLoginStack.Screen
         name={'HomeScreen'}

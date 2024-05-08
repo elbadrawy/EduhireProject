@@ -6,7 +6,7 @@ export default StyleSheet.create({
     flexGrow: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor:"#6750A4",
+    backgroundColor:"#305538",
   },
   container:{
     width:'100%',
@@ -53,19 +53,16 @@ export default StyleSheet.create({
     fontSize: 16,
   },
   Input:{
-    // borderWidth:0.6,
-    // borderColor:'rgba(0, 0, 0, 0.1)',
-    // padding:10,
-    // borderTopRightRadius:30,
-    // // borderTopLeftRadius:20,
-    // borderBottomLeftRadius:30,
-    // // borderBottomRightRadius:10,
-    
-    // backgroundColor:'rgba(0, 0, 0, 0.05)',
-    borderRadius:20,
-    marginBottom:20,
-    borderTopLeftRadius:20,
-    borderTopRightRadius:20,
+    borderWidth: 0.5,
+    borderColor: 'rgba(0,0,0,0.4)',
+    padding: 5,
+    borderRadius: 20,
+    paddingLeft: 10,
+    fontSize: 16,
+    marginBottom: 10,
+    width: '100%',
+    maxHeight: 50,
+    backgroundColor:'rgba(0,0,0,0.08)'
     
   },
   

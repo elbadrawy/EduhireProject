@@ -251,7 +251,7 @@ const styles = StyleSheet.create({
     textAlign:'center',
     maxWidth:250,
     color:'#fff',
-    backgroundColor:'#6750A4'
+    backgroundColor:'#305538'
   },
   jobTitle_Card:{
     fontSize:14,
@@ -273,9 +273,6 @@ const styles = StyleSheet.create({
     shadowOfset:{
     width:10,
     height:10,
-    
-    
-    
     },
     shadowOpacity:0.9,
     shadowRadius:4,

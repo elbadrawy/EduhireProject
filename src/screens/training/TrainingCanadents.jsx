@@ -1,8 +1,8 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState, useEffect} from 'react';
-import {ActivityIndicator, FlatList, View} from 'react-native';
+import {ActivityIndicator, FlatList, StyleSheet, View} from 'react-native';
 import firestore from '@react-native-firebase/firestore';
-import {Text, Divider} from '@rneui/themed';
+import {Text, Divider, Icon} from '@rneui/themed';
 import Toast from 'react-native-toast-message';
 import Clipboard from '@react-native-clipboard/clipboard';
 
@@ -72,23 +72,19 @@ export default function TrainingCanandents({route, navigation}) {
   const renderStudentItem = ({item}) => {
     const {student} = item;
     return (
-      <View style={{padding: 15, backgroundColor: '#fff', margin: 10}}>
+      <View style={styles.candidate}>
         <Text h4>
-          <Text h4 style={{fontWeight: '600', fontSize: 18}}>
-            Name:
-          </Text>{' '}
-          {student.firstname} {student.lastname}
+         
+        <Icon name="person" color={'black'} size={20} />  {student.firstname} {student.lastname}
         </Text>
         <Text>
-          <Text style={{fontWeight: '600', fontSize: 18}}>CoverLatter:</Text>{' '}
+          
           {item.coverLetter}
         </Text>
         <Text>
-          <Text h6 style={{fontWeight: '600', fontSize: 18}}>
-            Resume Link:
-          </Text>{' '}
-          <Text style={{color: 'blue'}} onPress={() => showToast(item.resume)}>
-            {item.resume}
+          
+          <Text style={{color: '#3c9af8'}} onPress={() => showToast(item.resume)}>
+          <Icon name="link" color={'#0202026d'} size={15} /> {item.resume}
           </Text>
         </Text>
       </View>
@@ -121,4 +117,30 @@ export default function TrainingCanandents({route, navigation}) {
       ItemSeparatorComponent={() => <Divider />}
     />
   );
+
 }
+
+const styles = StyleSheet.create({
+  candidate:{
+    padding: 15,
+    backgroundColor: '#fff',
+    margin: 10,
+    minHeight: 130,
+    maxHeight: 350,
+    borderRadius: 20,
+    shadowColor: '#1f1e1e',
+    shadowOfset: {
+      width: 10,
+      height: 10,
+    },
+    shadowOpacity: 0.9,
+    shadowRadius: 4,
+    elevation: 15,
+
+    flexDirection: 'column',
+
+    gap: 10,
+    alignItems: 'center',
+
+  }
+})

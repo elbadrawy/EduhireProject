@@ -71,20 +71,22 @@ export default function TaskCanadents({route, navigation}) {
   const renderStudentItem = ({item}) => {
     const {student} = item;
     return (
-      <View style={candidatStyles.holder}>
-        <Text h4>
-          {student.firstname} {student.lastname}         
-        </Text>
-        <Text>
-          <Text style={{fontWeight: '600', fontSize: 16}}>Description:</Text>{' '}
-          {item.description}
-        </Text>
-        <Text>
-          
-          <Text style={{color: 'blue'}} onPress={() => showToast(item.resume)}>
-            <Icon name="link" size={20} color={"#00000068"}/> {item.attachment}
+      <View style={candidatStyles.father}>
+        <View style={candidatStyles.holder}>
+          <Text h4>
+            {student.firstname} {student.lastname}         
           </Text>
-        </Text>
+          <Text>
+            <Text style={{fontWeight: '600', fontSize: 16}}>Description:</Text>{' '}
+            {item.description}
+          </Text>
+          <Text>
+            
+            <Text style={{color: 'blue'}} onPress={() => showToast(item.resume)}>
+              <Icon name="link" size={20} color={"#00000068"}/> {item.attachment}
+            </Text>
+          </Text>
+        </View>
       </View>
     );
   };
@@ -92,7 +94,7 @@ export default function TaskCanadents({route, navigation}) {
   return (
     <FlatList
       data={tasksApplyingData}
-      style={{flex: 1, padding: 15}}
+      style={{flex: 1, paddingTop:15, backgroundColor:'#305538'}}
       contentContainerStyle={{flex: 1, paddingBottom: 50}}
       // eslint-disable-next-line react/no-unstable-nested-components
       ListHeaderComponent={() => (
@@ -102,7 +104,7 @@ export default function TaskCanadents({route, navigation}) {
             flexDirection: 'row',
             alignItems: 'flex-end',
           }}>
-          <Text h3 h3Style={{width:'100%', textAlign:'center'}}>{task.title}</Text>
+          <Text h3 h3Style={{width:'100%', textAlign:'center', color:'#fff'}}>{task.title}</Text>
         </View>
       )}
       // eslint-disable-next-line react/no-unstable-nested-components
@@ -118,10 +120,23 @@ export default function TaskCanadents({route, navigation}) {
 }
 
 const candidatStyles = StyleSheet.create({
+  father:{
+    borderWidth:0,
+    borderColor:"#fff",
+    width:'100%',
+    height:'100%',
+    marginTop:15,
+    padding:15,
+    borderTopLeftRadius:50,
+    borderTopRightRadius:50,
+    backgroundColor:'white'    
+  },
   holder: {
     padding: 15,
     backgroundColor: '#fff',
     margin: 10,
+    borderWidth:0.5,
+    borderColor:"rgba(0,0,0,0.2)",
     alignItems:'center',
     borderRadius:30,
     gap:10,

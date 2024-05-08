@@ -2,13 +2,14 @@ import React, {useState, useEffect} from 'react';
 import {View, ScrollView, Alert} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
-import {ButtonGroup, Input, Button, Icon} from '@rneui/themed';
+import {ButtonGroup,Button, Icon} from '@rneui/themed';
 import {Dropdown} from 'react-native-element-dropdown';
 import styles from './Login.style';
 import reactotron from 'reactotron-react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Image, Text, color } from '@rneui/base';
 import { TextInput } from 'react-native-paper';
+import {Input} from 'native-base';
 
 
 
@@ -56,7 +57,7 @@ export default function LoginScreen({navigation}) {
   };
 
   return (
-    <ScrollView style={{flex: 1, backgroundColor:"#6750A4"}} contentContainerStyle={styles.containerStyle}>
+    <ScrollView style={{flex: 1, backgroundColor:"#305538"}} contentContainerStyle={styles.containerStyle}>
       
       <SafeAreaView className="flex">
         <View className="flex-row justify-center">
@@ -66,7 +67,7 @@ export default function LoginScreen({navigation}) {
       </SafeAreaView>
       <View style={styles.bottomScreen}>
         <Text style={styles.label}>Email</Text>
-        <TextInput 
+        <Input 
           placeholder="ahmad@gmail.com"
           value={email}
           onChangeText={v => setEmail(v)}
@@ -74,7 +75,7 @@ export default function LoginScreen({navigation}) {
            />
         
         <Text style={styles.label}>Password</Text>
-        <TextInput 
+        <Input 
           placeholder="Enter Password"
           value={password}
           secureTextEntry={true}
@@ -84,7 +85,7 @@ export default function LoginScreen({navigation}) {
         
         <View>
           <Button title="Login" onPress={() => login()}
-            buttonStyle={{borderRadius:25, backgroundColor:'#6750A4', marginBottom:20,marginTop:20,padding:13,}}
+            buttonStyle={{borderRadius:25, backgroundColor:'#305538', marginBottom:20,marginTop:20,padding:13,}}
             icon={<Icon name='login' color={'white'} size={18}/>}
             iconRight
             titleStyle={{marginHorizontal:5}}
@@ -96,7 +97,7 @@ export default function LoginScreen({navigation}) {
         <Button
           title="sign up"
           onPress={() => navigation.navigate('rejesterScreen')}
-          buttonStyle={{borderRadius:25, backgroundColor:'#6750A4',padding:13,type:'outline' }}
+          buttonStyle={{borderRadius:25, backgroundColor:'#305538',padding:13,type:'outline' }}
           
         />
 

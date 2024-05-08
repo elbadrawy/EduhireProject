@@ -192,7 +192,7 @@ export default function Tasks({route, navigation}) {
             );
           } else {
             return (
-              <View style={styles.taskHolder}>
+              <View style={styles.taskHolderStudent}>
                 <Text h4>{item.title}</Text>
                 <Text>{item.description}</Text>
                 <Text style={styles.mentorName}>
@@ -271,7 +271,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 20,
     borderBottomLeftRadius: 30,
     borderBottomRightRadius: 60,
-    backgroundColor: '#6750A4',
+    backgroundColor: '#305538',
     color: 'white',
   },
   deleteIcon:{
