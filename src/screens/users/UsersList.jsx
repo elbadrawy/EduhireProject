@@ -51,20 +51,35 @@ export default function UsersList({route, navigation}) {
     if (activeTab === '1') {
       return (
         <View style={styles.itemContainer}>
-          <View style={{maxWidth: 300}}>
-            <Text h4>
+          <View style={{maxWidth: 500, width: '100%'}}>
+            <Text
+              h4
+              h4Style={{
+                borderBottomWidth: 1,
+                borderColor: 'rgba(0,0,0,0.2)',
+                paddingBottom: 4,
+                marginBottom: 5,
+                width: '100%',
+              }}>
               {item?.firstname} {item?.lastname}
             </Text>
-            <Text>
+            <Text style={styles.info}>
+              <Icon source='book' color='rgba(0,0,0,0.5)'/> {' '}
               {item?.educationInfo?.education}, {item?.educationInfo?.major},{' '}
               {item?.educationInfo?.gradDate}
             </Text>
-            <Text>
+            <Text style={styles.info}>
+            <Icon source='pin' color='rgba(0,0,0,0.5)'/>{' '}
               {item?.location?.country}, {item?.location?.city}
             </Text>
-            <Text>{item?.email}</Text>
+            <Text style={styles.info}>
+              <Icon source='email' color='rgba(0,0,0,0.5)'/> {' '}
+              {item?.email}
+            </Text>
           </View>
-          <TouchableOpacity onPress={() => blockUser(item?.uid, item.blocked)}>
+          <TouchableOpacity
+            onPress={() => blockUser(item?.uid, item.blocked)}
+            style={styles.BlockButtom}>
             <Icon
               source={item.blocked === '1' ? 'account-lock-open' : 'cancel'}
               size={24}
@@ -77,12 +92,29 @@ export default function UsersList({route, navigation}) {
       return (
         <View style={styles.itemContainer}>
           <View style={{maxWidth: 300}}>
-            <Text h4>{item?.companyInfo?.name}</Text>
-            <Text>{item?.companyInfo?.companyWebSite}</Text>
-            <Text>
+            <Text
+              h4
+              h4Style={{
+                borderBottomWidth: 1,
+                borderColor: 'rgba(0,0,0,0.2)',
+                paddingBottom: 4,
+                marginBottom: 5,
+                width: '100%',
+              }}>
+              {item?.companyInfo?.name}
+            </Text>
+            <Text style={styles.info}>
+            <Icon source='link' color='rgba(0,0,0,0.5)'/> {' '}
+              {item?.companyInfo?.companyWebSite}
+            </Text>
+            <Text style={styles.info}>
+            <Icon source='pin' color='rgba(0,0,0,0.5)'/>{' '}
               {item?.location?.country}, {item?.location?.city}
             </Text>
-            <Text>{item?.email}</Text>
+            <Text style={styles.info}>
+            <Icon source='email' color='rgba(0,0,0,0.5)'/> {' '}
+              {item?.email}
+            </Text>
           </View>
           <TouchableOpacity onPress={() => blockUser(item?.uid, item.blocked)}>
             <Icon
@@ -97,10 +129,29 @@ export default function UsersList({route, navigation}) {
       return (
         <View style={styles.itemContainer}>
           <View style={{maxWidth: 300}}>
-            <Text h4>{item?.mentorDetails?.name}</Text>
-            <Text>{item?.mentorDetails?.jobTitle}</Text>
-            <Text>{item?.mentorDetails?.bio}</Text>
-            <Text>{item?.email}</Text>
+            <Text
+              h4
+              h4Style={{
+                borderBottomWidth: 1,
+                borderColor: 'rgba(0,0,0,0.2)',
+                paddingBottom: 4,
+                marginBottom: 5,
+                width: '100%',
+              }}>
+              {item?.mentorDetails?.name}
+            </Text>
+            <Text style={styles.info}>
+            <Icon source='desk' color='rgba(0,0,0,0.5)' size={15}/> {' '}
+              {item?.mentorDetails?.jobTitle}
+            </Text>
+            <Text style={styles.info}>
+            <Icon source='text' color='rgba(0,0,0,0.5)'/> {' '}
+              {item?.mentorDetails?.bio}
+            </Text>
+            <Text style={styles.info}>
+            <Icon source='email' color='rgba(0,0,0,0.5)'/> {' '}
+              {item?.email}
+            </Text>
           </View>
           <View>
             <TouchableOpacity
@@ -200,16 +251,19 @@ export default function UsersList({route, navigation}) {
         <Chip
           title="Students"
           type={activeTab === '1' ? 'solid' : 'outline'}
+          color={activeTab === '1' ? '#305538' : ''}
           onPress={() => handleTabPress('1')}
         />
         <Chip
           title="Mentors"
           type={activeTab === '3' ? 'solid' : 'outline'}
+          color={activeTab === '3' ? '#305538' : ''}
           onPress={() => handleTabPress('3')}
         />
         <Chip
           title="Companies"
           type={activeTab === '2' ? 'solid' : 'outline'}
+          color={activeTab === '2' ? '#305538' : ''}
           onPress={() => handleTabPress('2')}
         />
       </View>
@@ -247,6 +301,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: 10,
     marginBottom: 10,
+    // borderWidth:4,
   },
   itemContainer: {
     padding: 15,
@@ -255,5 +310,26 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    borderWidth: 0.5,
+    borderColor: 'rgba(0,0,0,0.2)',
+    borderRadius: 30,
+    shadowColor: '#333333',
+    shadowOfset: {
+      width: 10,
+      height: 10,
+    },
+    shadowOpacity: 0.9,
+    shadowRadius: 4,
+    elevation: 10,
   },
+
+  BlockButtom: {
+    position: 'relative',
+    right: 20,
+    bottom: 45,
+  },
+
+  info:{
+    marginBottom:10,
+  }
 });
