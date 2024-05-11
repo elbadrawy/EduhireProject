@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState, useEffect} from 'react';
-import {ActivityIndicator, FlatList, StyleSheet, View} from 'react-native';
+import {ActivityIndicator, FlatList, StyleSheet, View, ScrollView} from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import {Text, Divider, Icon} from '@rneui/themed';
 import Toast from 'react-native-toast-message';
@@ -79,74 +79,78 @@ export default function JobHistory({route, navigation}) {
   const renderStudentItem = ({item}) => {
     const {job, company} = item;
     return (
-      <View style={styles.jobHistory}>
-        <Text
-          h4
-          h4Style={{
-            fontSize: 20,
-            width: '100%',
-            textAlign: 'center',
-            borderBottomWidth: 0.5,
-            paddingBottom: 5,
-            paddingTop: 0,
-            marginBottom: 5,
-          }}>
-          {job.title}
-        </Text>
-        <Text>
+      
+        <View style={styles.jobHistory}>
           <Text
-            style={{
-              color: '#3c9af8',
+            h4
+            h4Style={{
+              fontSize: 20,
+              width: '100%',
               textAlign: 'center',
-              alignItems: 'center',
-            }}
-            onPress={() => showToast(company.email)}>
-            <Icon name="email" color={'#0202026d'} size={15} /> {company.email}
+              borderBottomWidth: 0.5,
+              paddingBottom: 5,
+              paddingTop: 0,
+              marginBottom: 5,
+            }}>
+            {job.title}
           </Text>
-        </Text>
-        <Text>
-          <Text style={{fontWeight: '600', fontSize: 18}}></Text>
-          {item.coverLetter}
-        </Text>
-        <Text>
-          <Text h6 style={{fontWeight: '600', fontSize: 18}}></Text>{' '}
-          <Text
-            style={{color: '#3c9af8'}}
-            onPress={() => showToast(item.resume)}>
-            <Icon name="link" color={'#0202026d'} size={15} /> {item.resume}
+          <Text>
+            <Text
+              style={{
+                color: '#3c9af8',
+                textAlign: 'center',
+                alignItems: 'center',
+              }}
+              onPress={() => showToast(company.email)}>
+              <Icon name="email" color={'#0202026d'} size={15} /> {company.email}
+            </Text>
           </Text>
-        </Text>
-      </View>
+          <Text>
+            <Text style={{fontWeight: '600', fontSize: 18}}></Text>
+            {item.coverLetter}
+          </Text>
+          <Text>
+            <Text h6 style={{fontWeight: '600', fontSize: 18}}></Text>{' '}
+            <Text
+              style={{color: '#3c9af8'}}
+              onPress={() => showToast(item.resume)}>
+              <Icon name="link" color={'#0202026d'} size={15} /> {item.resume}
+            </Text>
+          </Text>
+        </View>
+      
     );
   };
 
   return (
-    <FlatList
-      data={jobsHistoryData}
-      style={{flex: 1, padding: 15}}
-      contentContainerStyle={{flex: 1, paddingBottom: 50}}
-      // eslint-disable-next-line react/no-unstable-nested-components
-      ListHeaderComponent={() => (
-        <View
-          style={{
-            justifyContent: 'space-between',
-            flexDirection: 'row',
-            alignItems: 'flex-end',
-          }}>
-          <Text h3 h3Style={{width: '100%', textAlign: 'center'}}>
-            Job applied history
-          </Text>
-        </View>
-      )}
-      // eslint-disable-next-line react/no-unstable-nested-components
-      ListEmptyComponent={() => (
-        <View style={{flex: 1, alignSelf: 'center', justifyContent: 'center'}}>
-          <Text>No Jobs applied Yet!</Text>
-        </View>
-      )}
-      renderItem={renderStudentItem}
-      ItemSeparatorComponent={() => <Divider />}
-    />
+    <ScrollView >
+      <FlatList
+        data={jobsHistoryData}
+        style={{flex: 1, padding: 15}}
+        contentContainerStyle={{flex: 1, paddingBottom: 50}}
+        // eslint-disable-next-line react/no-unstable-nested-components
+        ListHeaderComponent={() => (
+          <View
+            style={{
+              justifyContent: 'space-between',
+              flexDirection: 'row',
+              alignItems: 'flex-end',
+            }}>
+            <Text h3 h3Style={{width: '100%', textAlign: 'center'}}>
+              Job applied history
+            </Text>
+          </View>
+        )}
+        // eslint-disable-next-line react/no-unstable-nested-components
+        ListEmptyComponent={() => (
+          <View style={{flex: 1, alignSelf: 'center', justifyContent: 'center'}}>
+            <Text>No Jobs applied Yet!</Text>
+          </View>
+        )}
+        renderItem={renderStudentItem}
+        ItemSeparatorComponent={() => <Divider />}
+      />
+    </ScrollView>
   );
 }
 

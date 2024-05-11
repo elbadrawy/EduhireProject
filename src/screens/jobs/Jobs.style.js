@@ -6,7 +6,7 @@ export default StyleSheet.create({
     //alignItems: 'center',
     // justifyContent: 'space-between',
     // borderWidth:4,
-    backgroundColor:"#305538",
+    backgroundColor:"#003049",
     paddingTop:15,
   },
   formHolder:{

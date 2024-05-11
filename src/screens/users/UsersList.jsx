@@ -251,19 +251,19 @@ export default function UsersList({route, navigation}) {
         <Chip
           title="Students"
           type={activeTab === '1' ? 'solid' : 'outline'}
-          color={activeTab === '1' ? '#305538' : ''}
+          color={activeTab === '1' ? '#003049' : ''}
           onPress={() => handleTabPress('1')}
         />
         <Chip
           title="Mentors"
           type={activeTab === '3' ? 'solid' : 'outline'}
-          color={activeTab === '3' ? '#305538' : ''}
+          color={activeTab === '3' ? '#003049' : ''}
           onPress={() => handleTabPress('3')}
         />
         <Chip
           title="Companies"
           type={activeTab === '2' ? 'solid' : 'outline'}
-          color={activeTab === '2' ? '#305538' : ''}
+          color={activeTab === '2' ? '#003049' : ''}
           onPress={() => handleTabPress('2')}
         />
       </View>

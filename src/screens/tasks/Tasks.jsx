@@ -271,7 +271,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 20,
     borderBottomLeftRadius: 30,
     borderBottomRightRadius: 60,
-    backgroundColor: '#305538',
+    backgroundColor: '#003049',
     color: 'white',
   },
   deleteIcon:{

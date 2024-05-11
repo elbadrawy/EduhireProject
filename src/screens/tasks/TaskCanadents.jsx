@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState, useEffect} from 'react';
-import {ActivityIndicator, FlatList, StyleSheet, View} from 'react-native';
+import {ActivityIndicator, FlatList, StyleSheet, View, ScrollView} from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import {Text, Divider,Icon} from '@rneui/themed';
 import Toast from 'react-native-toast-message';
@@ -71,7 +71,7 @@ export default function TaskCanadents({route, navigation}) {
   const renderStudentItem = ({item}) => {
     const {student} = item;
     return (
-      <View style={candidatStyles.father}>
+      
         <View style={candidatStyles.holder}>
           <Text h4>
             {student.firstname} {student.lastname}         
@@ -82,40 +82,42 @@ export default function TaskCanadents({route, navigation}) {
           </Text>
           <Text>
             
-            <Text style={{color: 'blue'}} onPress={() => showToast(item.resume)}>
+            <Text style={{color: '#3c9af8'}} onPress={() => showToast(item.resume)}>
               <Icon name="link" size={20} color={"#00000068"}/> {item.attachment}
             </Text>
           </Text>
         </View>
-      </View>
+      
     );
   };
 
   return (
-    <FlatList
-      data={tasksApplyingData}
-      style={{flex: 1, paddingTop:15, backgroundColor:'#305538'}}
-      contentContainerStyle={{flex: 1, paddingBottom: 50}}
-      // eslint-disable-next-line react/no-unstable-nested-components
-      ListHeaderComponent={() => (
-        <View
-          style={{
-            justifyContent: 'space-between',
-            flexDirection: 'row',
-            alignItems: 'flex-end',
-          }}>
-          <Text h3 h3Style={{width:'100%', textAlign:'center', color:'#fff'}}>{task.title}</Text>
-        </View>
-      )}
-      // eslint-disable-next-line react/no-unstable-nested-components
-      ListEmptyComponent={() => (
-        <View style={{flex: 1, alignSelf: 'center', justifyContent: 'center'}}>
-          <Text>No applying Students for this task Yet</Text>
-        </View>
-      )}
-      renderItem={renderStudentItem}
-      ItemSeparatorComponent={() => <Divider />}
-    />
+    <ScrollView style={candidatStyles.father}>
+      <FlatList
+        data={tasksApplyingData}
+        style={{flex: 1, paddingTop:15,}}
+        contentContainerStyle={{flex: 1, paddingBottom: 50}}
+        // eslint-disable-next-line react/no-unstable-nested-components
+        ListHeaderComponent={() => (
+          <View
+            style={{
+              justifyContent: 'space-between',
+              flexDirection: 'row',
+              alignItems: 'flex-end',
+            }}>
+            <Text h3 h3Style={{width:'100%', textAlign:'center', color:'black'}}>{task.title}</Text>
+          </View>
+        )}
+        // eslint-disable-next-line react/no-unstable-nested-components
+        ListEmptyComponent={() => (
+          <View style={{flex: 1, alignSelf: 'center', justifyContent: 'center'}}>
+            <Text>No applying Students for this task Yet</Text>
+          </View>
+        )}
+        renderItem={renderStudentItem}
+        ItemSeparatorComponent={() => <Divider />}
+      />
+    </ScrollView>
   );
 }
 
@@ -124,7 +126,7 @@ const candidatStyles = StyleSheet.create({
     borderWidth:0,
     borderColor:"#fff",
     width:'100%',
-    height:'100%',
+    height:'90%',
     marginTop:15,
     padding:15,
     borderTopLeftRadius:50,

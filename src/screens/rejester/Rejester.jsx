@@ -136,7 +136,7 @@ export default function Rejester({navigation}) {
           onChangeText={v => setEmail(v)}
           style={styles.Input}
         />
-        <Input
+        <Input   //Add Handle password to be more than 6 Char
           placeholder="Password"
           value={password}
           secureTextEntry={true}
@@ -262,7 +262,7 @@ export default function Rejester({navigation}) {
 
 
             <Input              
-             placeholder="gradDate"
+             placeholder="gradDate, (dd/mm/yyyy)"
              value={gradDate}
              onChangeText={v => setGradDate(v)}
              style={styles.Input}
@@ -270,7 +270,7 @@ export default function Rejester({navigation}) {
             
 
             <Input              
-             placeholder="skills"
+             placeholder="skills ( seperate by , )"
              value={skills}
              onChangeText={v => setSkills(v)}
              style={styles.Input}
@@ -284,7 +284,7 @@ export default function Rejester({navigation}) {
           onPress={() => rejester()}
           buttonStyle={{
             borderRadius: 50,
-            backgroundColor: '#305538',
+            backgroundColor: '#003049',
             padding: 10,
             type: 'outline',
           }}

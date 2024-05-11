@@ -47,7 +47,7 @@ export default function TaskApply({route, navigation: {goBack}}) {
 
   return (
     <ScrollView
-      style={{flex: 1, backgroundColor:'#305538'}}
+      style={{flex: 1, backgroundColor:'#003049'}}
       contentContainerStyle={[styles.containerStyle, ]}>
      
         
@@ -78,7 +78,7 @@ export default function TaskApply({route, navigation: {goBack}}) {
             onChangeText={v => setAttachment(v)}
             leftIcon={<Icon name="link" size={20}/>}
           />
-            <Button title="Submit" onPress={() => _submitTask()} buttonStyle={{borderRadius:20, width:100, backgroundColor:'#305538' }}/>
+            <Button title="Submit" onPress={() => _submitTask()} buttonStyle={{borderRadius:20, width:100, backgroundColor:'#003049' }}/>
         </View>
      
     

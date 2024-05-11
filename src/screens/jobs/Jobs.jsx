@@ -251,7 +251,7 @@ const styles = StyleSheet.create({
     textAlign:'center',
     maxWidth:250,
     color:'#fff',
-    backgroundColor:'#305538'
+    backgroundColor:'#003049'
   },
   jobTitle_Card:{
     fontSize:14,

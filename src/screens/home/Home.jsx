@@ -286,7 +286,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 20,
     padding:10,
-    backgroundColor:'#305538',
+    backgroundColor:'#003049',
     // borderWidth:2,
     borderBottomWidth:1,
     borderBottomColor:"rgba(0,0,0,0.2)",
@@ -320,7 +320,7 @@ const styles = StyleSheet.create({
   },
   username: {
     fontWeight: 'bold',
-    color:'#30623a',
+    color:'#003049',
   },
   date: {
     color: '#777777a5',
@@ -375,7 +375,7 @@ const styles = StyleSheet.create({
     elevation:17,
   },
   postButton: {
-    backgroundColor: '#305538',
+    backgroundColor: '#003049',
     borderRadius: 5,
     paddingVertical: 10,
     paddingHorizontal: 15,

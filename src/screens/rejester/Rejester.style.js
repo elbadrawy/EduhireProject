@@ -6,7 +6,7 @@ export default StyleSheet.create({
     flexGrow: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor:"#305538",
+    backgroundColor:"#003049",
   },
   container:{
     width:'100%',

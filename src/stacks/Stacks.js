@@ -51,10 +51,11 @@ export function PostLoginComponent({route}) {
     <PostLoginStack.Navigator  //Navigator (  Bottom screen )
       initialRouteName={'HomeScreen'}
       activeColor="#fff"
-      inactiveColor="black"
-      barStyle={{backgroundColor: '#305538', }}
+      inactiveColor="#fff"
+      barStyle={{backgroundColor: '#002f49cb', }}
       screenOptions={{headerShown: false, headerLeft: null}}>
       <PostLoginStack.Screen
+      
         name={'HomeScreen'}
         headerMode="none"
         initialParams={params}

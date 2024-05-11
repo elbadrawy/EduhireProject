@@ -46,7 +46,8 @@ export default function LoginScreen({navigation}) {
       signOut();
       Alert.alert(
         'error',
-        'User is blocked please contact us to unblock the user',
+        'User is blocked please contact us to unblock the user!, eduhire@gmail.com',
+        // 'eduhire@gmail.com'
       );
     } else {
       navigation.navigate('PostLoginStack', {
@@ -57,7 +58,7 @@ export default function LoginScreen({navigation}) {
   };
 
   return (
-    <ScrollView style={{flex: 1, backgroundColor:"#305538"}} contentContainerStyle={styles.containerStyle}>
+    <ScrollView style={{flex: 1, backgroundColor:"#003049"}} contentContainerStyle={styles.containerStyle}>
       
       <SafeAreaView className="flex">
         <View className="flex-row justify-center">
@@ -85,7 +86,7 @@ export default function LoginScreen({navigation}) {
         
         <View>
           <Button title="Login" onPress={() => login()}
-            buttonStyle={{borderRadius:25, backgroundColor:'#305538', marginBottom:20,marginTop:20,padding:13,}}
+            buttonStyle={{borderRadius:25, backgroundColor:'#003049', marginBottom:20,marginTop:20,padding:13,}}
             icon={<Icon name='login' color={'white'} size={18}/>}
             iconRight
             titleStyle={{marginHorizontal:5}}
@@ -97,7 +98,7 @@ export default function LoginScreen({navigation}) {
         <Button
           title="sign up"
           onPress={() => navigation.navigate('rejesterScreen')}
-          buttonStyle={{borderRadius:25, backgroundColor:'#305538',padding:13,type:'outline' }}
+          buttonStyle={{borderRadius:25, backgroundColor:'#003049',padding:13,type:'outline' }}
           
         />
 

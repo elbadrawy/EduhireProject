@@ -80,7 +80,7 @@ export default function JobApply({route, navigation: {goBack}}) {
               leftIcon={<Icon name="link" size={20}/>}
               
             />
-            <Button title="Submit" onPress={() => _submitJob()} buttonStyle={{borderRadius:20, width:100, backgroundColor:'#305538' }}/>
+            <Button title="Submit" onPress={() => _submitJob()} buttonStyle={{borderRadius:20, width:100, backgroundColor:'#003049' }}/>
         </View>
       </View>
 

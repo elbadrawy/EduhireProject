@@ -87,7 +87,7 @@ export default function SubmitTraining({route, navigation: {goBack}}) {
         buttonStyle={{
           borderRadius: 20,
           width: 100,
-          backgroundColor: '#305538',
+          backgroundColor: '#003049',
         }}
          />
       </View>

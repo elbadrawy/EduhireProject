@@ -44,7 +44,7 @@ export default function SubmitTask({route, navigation: {goBack}}) {
   };
 
   return (
-    <ScrollView style={{flex: 1, backgroundColor:'#305538'}} contentContainerStyle={styles.containerStyle}>
+    <ScrollView style={{flex: 1, backgroundColor:'#003049'}} contentContainerStyle={styles.containerStyle}>
       <View style={submitTaskStyles.holder}>
         <Dropdown
           style={styles.dropdown}
@@ -95,7 +95,7 @@ export default function SubmitTask({route, navigation: {goBack}}) {
           buttonStyle={{
             borderRadius: 20,
             width: 100,
-            backgroundColor: '#305538',
+            backgroundColor: '#003049',
           }}
         />
       </View>

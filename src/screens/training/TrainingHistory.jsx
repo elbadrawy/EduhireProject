@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState, useEffect} from 'react';
-import {ActivityIndicator, FlatList, StyleSheet, View} from 'react-native';
+import {ActivityIndicator, FlatList, StyleSheet, View, ScrollView} from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import {Text, Divider, Icon} from '@rneui/themed';
 import Toast from 'react-native-toast-message';
@@ -105,30 +105,32 @@ export default function TrainingHistory({route, navigation}) {
   };
 
   return (
-    <FlatList
-      data={trainingHistoryData}
-      style={{flex: 1, padding: 15}}
-      contentContainerStyle={{flex: 1, paddingBottom: 50}}
-      // eslint-disable-next-line react/no-unstable-nested-components
-      ListHeaderComponent={() => (
-        <View
-          style={{
-            justifyContent: 'space-between',
-            flexDirection: 'row',
-            alignItems: 'flex-end',
-          }}>
-          <Text h3 h3Style={{width:'100%', textAlign:'center'}}>Training applied history</Text>
-        </View>
-      )}
-      // eslint-disable-next-line react/no-unstable-nested-components
-      ListEmptyComponent={() => (
-        <View style={{flex: 1, alignSelf: 'center', justifyContent: 'center'}}>
-          <Text>No Training applied Yet!</Text>
-        </View>
-      )}
-      renderItem={renderStudentItem}
-      ItemSeparatorComponent={() => <Divider />}
-    />
+    <ScrollView>
+      <FlatList
+        data={trainingHistoryData}
+        style={{flex: 1, padding: 15}}
+        contentContainerStyle={{flex: 1, paddingBottom: 50}}
+        // eslint-disable-next-line react/no-unstable-nested-components
+        ListHeaderComponent={() => (
+          <View
+            style={{
+              justifyContent: 'space-between',
+              flexDirection: 'row',
+              alignItems: 'flex-end',
+            }}>
+            <Text h3 h3Style={{width:'100%', textAlign:'center'}}>Training applied history</Text>
+          </View>
+        )}
+        // eslint-disable-next-line react/no-unstable-nested-components
+        ListEmptyComponent={() => (
+          <View style={{flex: 1, alignSelf: 'center', justifyContent: 'center'}}>
+            <Text>No Training applied Yet!</Text>
+          </View>
+        )}
+        renderItem={renderStudentItem}
+        ItemSeparatorComponent={() => <Divider />}
+      />
+    </ScrollView>
   );
 }
 

@@ -124,7 +124,7 @@ export default function JobCanadents({route, navigation}) {
 const styles = StyleSheet.create({
   holder: {
     height: '100%',
-    backgroundColor: '#305538',
+    backgroundColor: '#003049',
   },
   jobTitle: {
     // borderWidth:4,

@@ -72,7 +72,7 @@ export default function TrainingApply({route, navigation: {goBack}}) {
 
         <Button title="Submit" 
          onPress={() => _submitTraining()}
-         buttonStyle={{borderRadius:20, width:100, backgroundColor:'#305538' }}
+         buttonStyle={{borderRadius:20, width:100, backgroundColor:'#003049' }}
          />
       </View>
 
