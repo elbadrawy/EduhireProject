@@ -162,6 +162,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderColor: 'rgba(0,0,0,0.07)',
     marginTop: 5,
+    minHeight:700,
     borderTopRightRadius: 50,
     borderTopLeftRadius: 50,
     shadowColor: '#1f1e1e',

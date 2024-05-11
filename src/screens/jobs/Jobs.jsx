@@ -42,6 +42,7 @@ export default function Jobs({route, navigation}) {
         querySnapshot = await firestore()
           .collection('Jobs')
           .where('companyID', '==', userRef)
+          
           .get();
       } else {
         querySnapshot = await firestore().collection('Jobs').get();

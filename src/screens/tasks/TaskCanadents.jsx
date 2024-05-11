@@ -132,7 +132,8 @@ const candidatStyles = StyleSheet.create({
     padding:15,
     borderTopLeftRadius:50,
     borderTopRightRadius:50,
-    backgroundColor:'white'   
+    backgroundColor:'white',
+    minHeight:700,   
   },
   holder: {
     padding: 15,

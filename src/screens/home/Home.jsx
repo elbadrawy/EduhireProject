@@ -138,26 +138,29 @@ export default function HomeScreen({route}) {
   };
   const fetchPosts = async (refresh = false) => {
     try {
-      refresh ? setRefreshLoading(true) : setLoading(true);
-      let querySnapshot = await firestore().collection('Posts').get();
-      const PostsPromises = querySnapshot.docs.map(async documentSnapshot => {
-        let UserData = await getUserInfo(documentSnapshot.data().userID);
-        return {
-          ...documentSnapshot.data(),
-          key: documentSnapshot.id,
-          user: {...UserData},
-        };
-      });
-      const postsData = await Promise.all(PostsPromises);
-      setPosts(postsData);
-      setLoading(false);
-      refresh && setRefreshLoading(false);
+        refresh ? setRefreshLoading(true) : setLoading(true);
+        let querySnapshot = await firestore()
+            .collection('Posts')
+            .orderBy('postDate', 'desc') // This will order the posts by date in descending order
+            .get();
+        const PostsPromises = querySnapshot.docs.map(async documentSnapshot => {
+            let UserData = await getUserInfo(documentSnapshot.data().userID);
+            return {
+                ...documentSnapshot.data(),
+                key: documentSnapshot.id,
+                user: {...UserData},
+            };
+        });
+        const postsData = await Promise.all(PostsPromises);
+        setPosts(postsData);
+        setLoading(false);
+        refresh && setRefreshLoading(false);
     } catch (error) {
-      refresh && setRefreshLoading(false);
-      setLoading(false);
-      console.error('Error fetching Posts:', error);
+        refresh && setRefreshLoading(false);
+        setLoading(false);
+        console.error('Error fetching Posts:', error);
     }
-  };
+};
 
   const username = user.email;
 

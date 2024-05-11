@@ -105,36 +105,47 @@ export default function TrainingHistory({route, navigation}) {
   };
 
   return (
-    <ScrollView>
-      <FlatList
-        data={trainingHistoryData}
-        style={{flex: 1, padding: 15}}
-        contentContainerStyle={{flex: 1, paddingBottom: 50}}
-        // eslint-disable-next-line react/no-unstable-nested-components
-        ListHeaderComponent={() => (
-          <View
-            style={{
-              justifyContent: 'space-between',
-              flexDirection: 'row',
-              alignItems: 'flex-end',
-            }}>
-            <Text h3 h3Style={{width:'100%', textAlign:'center'}}>Training applied history</Text>
-          </View>
-        )}
-        // eslint-disable-next-line react/no-unstable-nested-components
-        ListEmptyComponent={() => (
-          <View style={{flex: 1, alignSelf: 'center', justifyContent: 'center'}}>
-            <Text>No Training applied Yet!</Text>
-          </View>
-        )}
-        renderItem={renderStudentItem}
-        ItemSeparatorComponent={() => <Divider />}
-      />
-    </ScrollView>
+     <View style={styles.holder}>
+        <Text h3 h3Style={{width:'100%', textAlign:'center', marginTop:10, color:'white'}}>Training applied history</Text>
+
+        <ScrollView style={{height:'100%'}}>
+          <FlatList
+            data={trainingHistoryData}
+            style={styles.father}
+            contentContainerStyle={{flex: 1, paddingBottom: 50}}
+            // eslint-disable-next-line react/no-unstable-nested-components
+           
+            // eslint-disable-next-line react/no-unstable-nested-components
+            ListEmptyComponent={() => (
+              <View style={{flex: 1, alignSelf: 'center', justifyContent: 'center'}}>
+                <Text>No Training applied Yet!</Text>
+              </View>
+            )}
+            renderItem={renderStudentItem}
+            ItemSeparatorComponent={() => <Divider />}
+          />
+        </ScrollView>
+    </View>
   );
 }
 
 const styles =StyleSheet.create({
+  holder:{
+    height:'100%',
+    backgroundColor:'#003049',
+  },
+  father:{
+    // borderWidth:2,
+    // borderColor:"red",
+    width:'100%',
+    height:"100%",
+    marginTop:15,
+    padding:15,
+    borderTopLeftRadius:50,
+    borderTopRightRadius:50,
+    backgroundColor:'white',
+    minHeight:700,  
+  },
   trainingHistory:{
     padding: 15,
     backgroundColor: '#fff',
