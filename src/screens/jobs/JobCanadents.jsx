@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState, useEffect} from 'react';
-import {ActivityIndicator, FlatList, StyleSheet, View} from 'react-native';
+import {ActivityIndicator, FlatList, ScrollView, StyleSheet, View} from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import {Text, Divider, Icon} from '@rneui/themed';
 import Toast from 'react-native-toast-message';
@@ -91,32 +91,34 @@ export default function JobCanadents({route, navigation}) {
     <>
       
       <View style={styles.holder}>
-      <Text h3 style={styles.jobTitle}>
-        {job.title}
-      </Text>
-        <FlatList
-          data={jobsApplyingData}
-          style={styles.applyingList}
-          contentContainerStyle={{flex: 1, paddingBottom: 50}}
-          // eslint-disable-next-line react/no-unstable-nested-components
-          ListHeaderComponent={() => (
-            <View
-              style={{
-                justifyContent: 'space-between',
-                flexDirection: 'row',
-                alignItems: 'flex-end',
-              }}></View>
-          )}
-          // eslint-disable-next-line react/no-unstable-nested-components
-          ListEmptyComponent={() => (
-            <View
-              style={{flex: 1, alignSelf: 'center', justifyContent: 'center'}}>
-              <Text>No applying Students for this job Yet</Text>
-            </View>
-          )}
-          renderItem={renderStudentItem}
-          ItemSeparatorComponent={() => <Divider />}
-        />
+      <ScrollView>
+          <Text h3 style={styles.jobTitle}>
+            {job.title}
+          </Text>
+            <FlatList
+              data={jobsApplyingData}
+              style={styles.applyingList}
+              contentContainerStyle={{flex: 1, paddingBottom: 50}}
+              // eslint-disable-next-line react/no-unstable-nested-components
+              ListHeaderComponent={() => (
+                <View
+                  style={{
+                    justifyContent: 'space-between',
+                    flexDirection: 'row',
+                    alignItems: 'flex-end',
+                  }}></View>
+              )}
+              // eslint-disable-next-line react/no-unstable-nested-components
+              ListEmptyComponent={() => (
+                <View
+                  style={{flex: 1, alignSelf: 'center', justifyContent: 'center'}}>
+                  <Text>No applying Students for this job Yet</Text>
+                </View>
+              )}
+              renderItem={renderStudentItem}
+              ItemSeparatorComponent={() => <Divider />}
+            />
+        </ScrollView>
       </View>
     </>
   );

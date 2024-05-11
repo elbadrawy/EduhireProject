@@ -92,46 +92,47 @@ export default function TaskCanadents({route, navigation}) {
   };
 
   return (
-    <ScrollView style={candidatStyles.father}>
-      <FlatList
-        data={tasksApplyingData}
-        style={{flex: 1, paddingTop:15,}}
-        contentContainerStyle={{flex: 1, paddingBottom: 50}}
-        // eslint-disable-next-line react/no-unstable-nested-components
-        ListHeaderComponent={() => (
-          <View
-            style={{
-              justifyContent: 'space-between',
-              flexDirection: 'row',
-              alignItems: 'flex-end',
-            }}>
-            <Text h3 h3Style={{width:'100%', textAlign:'center', color:'black'}}>{task.title}</Text>
-          </View>
-        )}
-        // eslint-disable-next-line react/no-unstable-nested-components
-        ListEmptyComponent={() => (
-          <View style={{flex: 1, alignSelf: 'center', justifyContent: 'center'}}>
-            <Text>No applying Students for this task Yet</Text>
-          </View>
-        )}
-        renderItem={renderStudentItem}
-        ItemSeparatorComponent={() => <Divider />}
-      />
-    </ScrollView>
+    <View style={{ backgroundColor:'#003049', }}>
+      <ScrollView >
+        <View
+              style={{
+                justifyContent: 'space-between',
+                flexDirection: 'row',
+                alignItems: 'flex-end',
+              }}>
+              <Text h3 h3Style={{width:'100%', textAlign:'center', color:'white', marginTop:10,}}>{task.title}</Text>
+            </View>
+        <FlatList
+          data={tasksApplyingData}
+          style={candidatStyles.father}
+          contentContainerStyle={{flex: 1, paddingBottom: 50,}}
+          // eslint-disable-next-line react/no-unstable-nested-components
+          
+          // eslint-disable-next-line react/no-unstable-nested-components
+          ListEmptyComponent={() => (
+            <View style={{flex: 1, alignSelf: 'center', justifyContent: 'center'}}>
+              <Text>No applying Students for this task Yet</Text>
+            </View>
+          )}
+          renderItem={renderStudentItem}
+          ItemSeparatorComponent={() => <Divider />}
+        />
+      </ScrollView>
+    </View>
   );
 }
 
 const candidatStyles = StyleSheet.create({
   father:{
-    borderWidth:0,
-    borderColor:"#fff",
+    // borderWidth:0,
+    // borderColor:"red",
     width:'100%',
-    height:'90%',
+    height:'100%',
     marginTop:15,
     padding:15,
     borderTopLeftRadius:50,
     borderTopRightRadius:50,
-    backgroundColor:'white'    
+    backgroundColor:'white'   
   },
   holder: {
     padding: 15,

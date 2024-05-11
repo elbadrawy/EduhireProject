@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState, useEffect} from 'react';
-import {ActivityIndicator, FlatList, StyleSheet, View} from 'react-native';
+import {ActivityIndicator, FlatList, ScrollView, StyleSheet, View} from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import {Text, Divider, Icon} from '@rneui/themed';
 import Toast from 'react-native-toast-message';
@@ -92,35 +92,47 @@ export default function TrainingCanandents({route, navigation}) {
   };
 
   return (
-    <FlatList
-      data={trainingApplyingData}
-      style={{flex: 1, padding: 15}}
-      contentContainerStyle={{flex: 1, paddingBottom: 50}}
-      // eslint-disable-next-line react/no-unstable-nested-components
-      ListHeaderComponent={() => (
-        <View
+    <View style={styles.holder}>
+      
+      <ScrollView>
+      <View
           style={{
             justifyContent: 'space-between',
             flexDirection: 'row',
             alignItems: 'flex-end',
-          }}>
-          <Text h3>{training.title}</Text>
-        </View>
-      )}
-      // eslint-disable-next-line react/no-unstable-nested-components
-      ListEmptyComponent={() => (
-        <View style={{flex: 1, alignSelf: 'center', justifyContent: 'center'}}>
-          <Text>No applying Students for this training Yet</Text>
-        </View>
-      )}
-      renderItem={renderStudentItem}
-      ItemSeparatorComponent={() => <Divider />}
-    />
+            marginBottom:10,
+            marginTop:10,
+            
+           }}>
+              <Text h3 h3Style={{width:'100%',textAlign:'center', color:'white'}}> {training.title}</Text>
+      </View>
+        <FlatList
+          data={trainingApplyingData}
+          style={styles.applyingList}
+          contentContainerStyle={{flex: 1, paddingBottom: 50,}}
+          // eslint-disable-next-line react/no-unstable-nested-components
+          
+          // eslint-disable-next-line react/no-unstable-nested-components
+          ListEmptyComponent={() => (
+            <View style={{flex: 1, alignSelf: 'center', justifyContent: 'center'}}>
+              <Text>No applying Students for this training Yet</Text>
+            </View>
+          )}
+          renderItem={renderStudentItem}
+          ItemSeparatorComponent={() => <Divider />}
+        />
+        
+      </ScrollView>
+    </View>
   );
 
 }
 
 const styles = StyleSheet.create({
+  holder:{
+    height: '100%',
+    backgroundColor: '#003049',
+  },
   candidate:{
     padding: 15,
     backgroundColor: '#fff',
@@ -142,5 +154,23 @@ const styles = StyleSheet.create({
     gap: 10,
     alignItems: 'center',
 
-  }
+  },
+  applyingList: {
+    flex: 1,
+    padding: 15,
+    borderWidth: 1,
+    backgroundColor: 'white',
+    borderColor: 'rgba(0,0,0,0.07)',
+    marginTop: 5,
+    borderTopRightRadius: 50,
+    borderTopLeftRadius: 50,
+    shadowColor: '#1f1e1e',
+    shadowOfset: {
+      width: 10,
+      height: 10,
+    },
+    shadowOpacity: 0.9,
+    shadowRadius: 4,
+    elevation: 15,
+  },
 })
