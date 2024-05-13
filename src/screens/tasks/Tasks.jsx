@@ -155,7 +155,7 @@ export default function Tasks({route, navigation}) {
                 style={styles.taskHolder}>
                 <View>
                   <View style={styles.taskHeader}>
-                    <Text h4>{item.title}</Text>
+                    <Text h4 >{item.title}</Text>
                     <TaskStatusBox difficultyLevel={item.difficiultyLevel} />
                     
                   </View>
@@ -276,6 +276,7 @@ const styles = StyleSheet.create({
   },
   deleteIcon:{
     position:'relative',
-    right:20,
+    right:8,
+    bottom:10,
   }
 });

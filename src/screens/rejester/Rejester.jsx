@@ -34,6 +34,18 @@ export default function Rejester({navigation}) {
   const [mentorJobTitle, setMentorJobTitle] = useState();
 
   const rejester = () => {
+    const emailRegex = /^[^@]+@gmail\.com$/;
+    if (!emailRegex.test(email)) {
+      Alert.alert('Validation Error', 'Please use a Gmail account.');
+      return;
+    }
+
+    if (password.length < 6) {
+      Alert.alert('Validation Error', 'Password must be at least 6 characters long.');
+      return;
+    }
+
+    
     auth()
       .createUserWithEmailAndPassword(email, password)
       .then(x => {

@@ -81,7 +81,7 @@ export default function Training({route, navigation}) {
           style={styles.companyTrainingHolder}>
           <View style={{maxWidth: 300, }}>
             <View style={{display:'flex', justifyContent:'space-between', flexDirection:'row', marginBottom:10,}}>
-                <Text h4>{item.title}</Text>
+                <Text h4 >{item.title}</Text>
                 <TouchableOpacity onPress={() => deleteTraining(item?.key)} style={styles.deleteIcon}>
                 <Icon source={'delete'} size={24} color="red" />
               </TouchableOpacity>
@@ -220,6 +220,7 @@ const styles = StyleSheet.create({
     shadowOfset:{
     width:10,
     height:10,
+
     
     
     },
@@ -227,7 +228,9 @@ const styles = StyleSheet.create({
     shadowOpacity:0.9,
     shadowRadius:4,
     elevation:10,
-    height:150,
+   
+    minHeight:160,
+    maxHeight:350,
     // justifyContent:'space-between'
   
   },

@@ -24,6 +24,8 @@ import TaskCanadents from '../screens/tasks/TaskCanadents';
 import UsersList from '../screens/users/UsersList';
 import reactotron from 'reactotron-react-native';
 
+// import Test from '../Test';
+
 export const MainStack = createNativeStackNavigator();
 export const PreLoginStack = createNativeStackNavigator();
 export const PostLoginStack = createMaterialBottomTabNavigator();
@@ -31,6 +33,8 @@ export const JobStack = createNativeStackNavigator();
 export const TasksStack = createNativeStackNavigator();
 export const TrainingStack = createNativeStackNavigator();
 export const UsersStack = createNativeStackNavigator();
+
+// export const TestStack = createNativeStackNavigator();
 
 export function PreLoginComponent() {
   return (
@@ -110,6 +114,21 @@ export function PostLoginComponent({route}) {
           ),
         }}
       />
+
+
+      {/* <PostLoginStack.Screen
+        name={'TestStack'}
+        initialParams={params}
+        component={TestStackComponent}
+        options={{
+          tabBarLabel: 'test',
+          tabBarIcon: () => (
+            <MaterialCommunityIcons name="door" color={'grey'} size={26} />
+          ),
+        }}
+      /> */}
+
+
       {params?.userDetails?.type === '0' && (
         <PostLoginStack.Screen
           name={'UsersList'}
@@ -131,6 +150,23 @@ export function PostLoginComponent({route}) {
     </PostLoginStack.Navigator>
   );
 }
+
+// export function TestStackComponent({route}) {
+//   const {params} = route;
+//   return (
+//     <TestStack.Navigator initialRouteName={'TestScreen'}>
+//         <TestStack.Screen
+//           name={'Tests'}
+//           initialParams={params}
+//           component={Test}
+//           options={{
+//             headerShown:true,
+//             headerTitle:'Testsssss'
+//           }}
+//         />
+//     </TestStack.Navigator>
+//   );
+// }
 
 export function JobStackComponent({route}) {
   const {params} = route;

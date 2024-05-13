@@ -17,7 +17,7 @@ import Container from '../Container';
 import firestore from '@react-native-firebase/firestore';
 import reactotron from 'reactotron-react-native';
 import { Button, Icon } from '@rneui/base';
-
+//aa
 
 const WelcomeMessage = ({username}) => {
   return (
@@ -52,11 +52,11 @@ const Post = ({
   };
 
   const formatPostDate = ({seconds, nanoseconds}) => {
-    const milliseconds = seconds * 1000 + nanoseconds / 1000000;
+    const milliseconds = seconds * 1000 + nanoseconds / 1000000; // start Converting to readable format
     const date = new Date(milliseconds);
     const year = date.getFullYear();
-    const month = (date.getMonth() + 1).toString().padStart(2, '0');
-    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Retrieves the month from the Date object (0-indexed, where January is 0 and December is 11),
+    const day = date.getDate().toString().padStart(2, '0'); // Retrieves the day of the month from the Date object, converts it to a string, and pads it with a leading zero if it is less than 10 (to ensure the day always has two digits).
     return `${year}-${month}-${day}`;
   };
 
@@ -111,7 +111,7 @@ export default function HomeScreen({route}) {
   const navigation = useNavigation();
   const {user} = route.params;
   const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true); // for loading spinner
   const [refreshLoading, setRefreshLoading] = useState(false);
 
   useEffect(() => {
@@ -143,17 +143,17 @@ export default function HomeScreen({route}) {
             .collection('Posts')
             .orderBy('postDate', 'desc') // This will order the posts by date in descending order
             .get();
-        const PostsPromises = querySnapshot.docs.map(async documentSnapshot => {
+        const PostsPromises = querySnapshot.docs.map(async documentSnapshot => { // documentSnapshot represents a document from Firestore
             let UserData = await getUserInfo(documentSnapshot.data().userID);
             return {
-                ...documentSnapshot.data(),
-                key: documentSnapshot.id,
-                user: {...UserData},
+                ...documentSnapshot.data(), //... This uses the spread operator to copy all the fields from the original document data into a new object.
+                key: documentSnapshot.id, //  Adds a new field key, which is set to the ID of the document
+                user: {...UserData},  // Adds a new field user, which is an object containing all the data of the user associated with this document.
             };
         });
-        const postsData = await Promise.all(PostsPromises);
-        setPosts(postsData);
-        setLoading(false);
+        const postsData = await Promise.all(PostsPromises); // take all info about the documet
+        setPosts(postsData); // assign it to setPosts
+        setLoading(false); // Loading sppener disapear
         refresh && setRefreshLoading(false);
     } catch (error) {
         refresh && setRefreshLoading(false);
@@ -201,7 +201,7 @@ export default function HomeScreen({route}) {
             <ActivityIndicator style={{flex: 1, alignSelf: 'center'}} />
           ) : (
             <View
-              style={{flex: 1, alignSelf: 'center', justifyContent: 'center'}}>
+              style={{flex: 1, alignSelf: 'center', justifyContent: 'center', height:'100%'}}>
               <Text>No Posts Available Yet</Text>
             </View>
           )

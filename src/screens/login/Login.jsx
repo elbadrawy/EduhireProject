@@ -23,13 +23,29 @@ export default function LoginScreen({navigation}) {
       Alert.alert('alert', 'Please enter the email and password');
       return null;
     }
+    const emailRegex = /^[^@]+@gmail\.com$/;
+    if (!emailRegex.test(email)) {
+      Alert.alert('Validation Error', 'Please use a Gmail account.');
+      return;
+    }
+
+    if (password.length < 6) {
+      Alert.alert('Validation Error', 'Password must be at least 6 characters long.');
+      return;
+    }
     auth()
       .signInWithEmailAndPassword(email, password)
       .then(async result => {
         await getUserDetails(result);
       })
-      .catch(e => {
-        Alert.alert('alert', e.toString());
+      .catch(error => {
+        let errorMessage = 'Login failed. Please try again.';
+        if (error.code === 'auth/user-not-found') {
+          errorMessage = 'No account found with this email. Please sign up first.';
+        } else if (error.code === 'auth/wrong-password') {
+          errorMessage = 'Incorrect password. Please try again.';
+        }        
+        Alert.alert('Login Error', errorMessage);
       });
   }
 
@@ -63,7 +79,7 @@ export default function LoginScreen({navigation}) {
       <SafeAreaView className="flex">
         <View className="flex-row justify-center">
             <Text style={styles.brandName}>EDUHIRE</Text>
-            {/* <Image source={require("../images/logo1.png")} style={{width:200, height:200}}/> */}
+            {/* <Image source={require("../images/newLogo.png")} style={{width:300, height:300}}/> */}
         </View>
       </SafeAreaView>
       <View style={styles.bottomScreen}>

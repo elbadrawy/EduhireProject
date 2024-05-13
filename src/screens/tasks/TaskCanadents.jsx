@@ -86,6 +86,7 @@ export default function TaskCanadents({route, navigation}) {
               <Icon name="link" size={20} color={"#00000068"}/> {item.attachment}
             </Text>
           </Text>
+          
         </View>
       
     );

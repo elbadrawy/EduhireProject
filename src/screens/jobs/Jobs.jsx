@@ -233,14 +233,17 @@ const styles = StyleSheet.create({
   removeIcon:{
     position:'relative',
     bottom:50,
-    left:30,
+    // left:20,
+    // right:10,
   },
   jobHolder:{ // Company
     textAlign:'center',
     alignItems:'center',
     flexDirection:'column',
     gap:15,
+   
   },
+  
   companyName:{
     // borderWidth:1,
     padding:8,

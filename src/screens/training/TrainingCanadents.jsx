@@ -104,7 +104,7 @@ export default function TrainingCanandents({route, navigation}) {
             marginTop:10,
             
            }}>
-              <Text h3 h3Style={{width:'100%',textAlign:'center', color:'white'}}> {training.title}</Text>
+              <Text h3 h3Style={{width:'100%',textAlign:'center', color:'white', alignItems:'center'}}> {training.title}</Text>
       </View>
         <FlatList
           data={trainingApplyingData}

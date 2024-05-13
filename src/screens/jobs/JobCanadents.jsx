@@ -134,6 +134,7 @@ const styles = StyleSheet.create({
     color:'white',
     marginTop:10,
     marginBottom:10,
+    alignItems:'center'
   },
   applyingList: {
     flex: 1,
